@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio | Ryota KAMEI</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Noto+Sans+JP:wght@300;400;500;700&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --gold:#C9A84C; --gold-light:#E8D5A3; --gold-pale:#F5EDD4;
+      --white:#FFFFFF; --off-white:#FAFAF8; --gray-light:#F0EDE6;
+      --gray:#9A9180; --dark:#1A1714; --dark-mid:#2C2720; --code-bg:#1E1C1A;
+    }
+    *{margin:0;padding:0;box-sizing:border-box;}
+    html{scroll-behavior:smooth;}
+    body{font-family:'Noto Sans JP',sans-serif;background:var(--off-white);color:var(--dark);line-height:1.8;}
+    ::-webkit-scrollbar{width:5px;}
+    ::-webkit-scrollbar-track{background:var(--gray-light);}
+    ::-webkit-scrollbar-thumb{background:var(--gold);border-radius:3px;}
+
+    /* NAV */
+    nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;justify-content:space-between;align-items:center;padding:0 56px;height:62px;background:rgba(255,255,255,.93);backdrop-filter:blur(12px);border-bottom:1px solid var(--gold-light);}
+    .nav-logo{font-family:'Cinzel',serif;font-size:1rem;color:var(--gold);letter-spacing:.2em;text-decoration:none;font-weight:600;}
+    .nav-links{display:flex;gap:32px;list-style:none;}
+    .nav-links a{text-decoration:none;font-size:.75rem;font-weight:500;color:var(--dark);letter-spacing:.1em;text-transform:uppercase;position:relative;transition:color .3s;}
+    .nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;right:0;height:1px;background:var(--gold);transform:scaleX(0);transition:transform .3s;}
+    .nav-links a:hover,.nav-links a.active{color:var(--gold);}
+    .nav-links a:hover::after,.nav-links a.active::after{transform:scaleX(1);}
+
+    /* HERO */
+    #hero{min-height:100vh;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
+    .hero-bg{position:absolute;inset:0;background-image:url('img/AboutMe/ハロウィン.png');background-size:cover;background-position:center 30%;filter:brightness(.38) saturate(.7);}
+    .hero-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,rgba(201,168,76,.06) 0%,rgba(26,23,20,.65) 100%);}
+    .hero-content{text-align:center;position:relative;z-index:1;padding:0 24px;}
+    .hero-eyebrow{font-family:'Cinzel',serif;font-size:.7rem;letter-spacing:.3em;color:var(--gold-light);text-transform:uppercase;margin-bottom:20px;display:flex;align-items:center;justify-content:center;gap:14px;}
+    .hero-eyebrow::before,.hero-eyebrow::after{content:'';width:32px;height:1px;background:var(--gold);}
+    .hero-name{font-family:'Cinzel',serif;font-size:clamp(3rem,7vw,5.5rem);font-weight:700;line-height:1.1;color:var(--white);letter-spacing:.05em;margin-bottom:8px;}
+    .hero-name span{background:linear-gradient(135deg,var(--gold) 0%,#E8D5A3 50%,var(--gold) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+    .hero-subtitle{font-size:.88rem;color:rgba(232,213,163,.8);letter-spacing:.22em;text-transform:uppercase;margin-bottom:28px;font-weight:300;}
+    .hero-tagline{font-size:1rem;color:rgba(255,255,255,.72);font-weight:300;max-width:540px;margin:0 auto 44px;line-height:2;}
+    .hero-cta{display:inline-flex;align-items:center;gap:10px;padding:13px 34px;background:linear-gradient(135deg,var(--gold) 0%,#B8960A 100%);color:white;text-decoration:none;font-size:.82rem;letter-spacing:.15em;text-transform:uppercase;font-weight:500;transition:all .3s;box-shadow:0 4px 24px rgba(201,168,76,.35);}
+    .hero-cta:hover{box-shadow:0 8px 36px rgba(201,168,76,.55);transform:translateY(-2px);}
+    .hero-scroll{position:absolute;bottom:36px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;}
+    .hero-scroll span{font-size:.6rem;letter-spacing:.25em;color:var(--gold-light);text-transform:uppercase;}
+    .hero-scroll-line{width:1px;height:44px;background:linear-gradient(to bottom,var(--gold),transparent);animation:scrollPulse 2s ease-in-out infinite;}
+    @keyframes scrollPulse{0%,100%{opacity:.35}50%{opacity:1}}
+
+    /* SECTION BASE */
+    section{padding:110px 56px;}
+    .section-inner{max-width:1100px;margin:0 auto;}
+    .section-header{text-align:center;margin-bottom:68px;}
+    .section-eyebrow{font-family:'Cinzel',serif;font-size:.67rem;letter-spacing:.4em;color:var(--gold);text-transform:uppercase;margin-bottom:12px;display:flex;align-items:center;justify-content:center;gap:12px;}
+    .section-eyebrow::before,.section-eyebrow::after{content:'';width:28px;height:1px;background:var(--gold-light);}
+    .section-title{font-family:'Cinzel',serif;font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:600;letter-spacing:.05em;}
+    .section-divider{width:52px;height:2px;background:linear-gradient(to right,var(--gold),var(--gold-light));margin:18px auto 0;}
+
+    /* ABOUT */
+    #about{background:var(--white);}
+    .about-grid{display:grid;grid-template-columns:1fr 2fr;gap:76px;align-items:start;}
+    .about-photo-wrap{position:relative;}
+    .about-photo{width:100%;aspect-ratio:3/4;object-fit:cover;object-position:top;display:block;}
+    .about-photo-frame{position:absolute;top:12px;left:12px;right:-12px;bottom:-12px;border:1px solid var(--gold-light);z-index:-1;}
+    .about-name-jp{font-size:2rem;font-weight:700;letter-spacing:.1em;margin-bottom:4px;}
+    .about-name-en{font-family:'Cinzel',serif;font-size:.93rem;color:var(--gold);letter-spacing:.22em;margin-bottom:28px;}
+    .about-meta{display:flex;flex-direction:column;gap:10px;margin-bottom:28px;padding:20px 22px;background:var(--off-white);border-left:2px solid var(--gold);}
+    .about-meta-item{display:flex;gap:18px;font-size:.87rem;}
+    .about-meta-label{color:var(--gold);font-weight:500;min-width:80px;letter-spacing:.05em;}
+    .about-desc{font-size:.92rem;line-height:2.1;opacity:.82;margin-bottom:22px;}
+    .about-vision{padding:18px 22px;background:var(--gold-pale);border:1px solid var(--gold-light);margin-bottom:22px;}
+    .about-vision-label{font-family:'Cinzel',serif;font-size:.67rem;letter-spacing:.25em;color:var(--gold);text-transform:uppercase;margin-bottom:8px;}
+    .about-vision-text{font-size:.89rem;line-height:1.9;opacity:.87;}
+    .awards-list{display:flex;flex-direction:column;gap:10px;margin-top:24px;}
+    .award-item{display:flex;align-items:flex-start;gap:10px;padding:12px 16px;background:var(--off-white);border:1px solid var(--gray-light);}
+    .award-text{font-size:.85rem;line-height:1.6;}
+    .award-text a{color:var(--gold);text-decoration:none;border-bottom:1px solid var(--gold-light);}
+    .award-text a:hover{border-color:var(--gold);}
+
+    /* HISTORY */
+    #history{background:var(--off-white);}
+    .timeline{position:relative;padding-left:28px;}
+    .timeline::before{content:'';position:absolute;left:0;top:8px;bottom:8px;width:1px;background:linear-gradient(to bottom,var(--gold),var(--gold-light),transparent);}
+    .timeline-item{position:relative;padding-bottom:36px;}
+    .timeline-item:last-child{padding-bottom:0;}
+    .timeline-dot{position:absolute;left:-32px;top:6px;width:9px;height:9px;border-radius:50%;background:var(--gold);border:2px solid var(--white);box-shadow:0 0 0 2px var(--gold-light);}
+    .timeline-date{font-family:'Source Code Pro',monospace;font-size:.73rem;color:var(--gold);letter-spacing:.1em;margin-bottom:3px;}
+    .timeline-title{font-size:.95rem;font-weight:700;margin-bottom:4px;}
+    .timeline-desc{font-size:.83rem;color:var(--gray);line-height:1.72;}
+
+    /* SKILLS */
+    #skills{background:var(--white);}
+    .skills-label{font-family:'Cinzel',serif;font-size:.67rem;letter-spacing:.3em;color:var(--gold);text-transform:uppercase;margin-bottom:18px;}
+    .skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+    .skill-card{background:var(--off-white);border:1px solid var(--gray-light);padding:20px 18px;transition:all .3s;position:relative;}
+    .skill-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(to right,var(--gold),var(--gold-light));transform:scaleX(0);transition:transform .3s;}
+    .skill-card:hover{box-shadow:0 6px 28px rgba(0,0,0,.06);transform:translateY(-3px);}
+    .skill-card:hover::before{transform:scaleX(1);}
+    .skill-card-head{display:flex;align-items:center;gap:12px;margin-bottom:10px;}
+    .skill-icon{width:36px;height:36px;border-radius:8px;overflow:hidden;flex-shrink:0;background:var(--gray-light);display:flex;align-items:center;justify-content:center;}
+    .skill-icon img{width:100%;height:100%;object-fit:contain;}
+    .skill-card-name{font-family:'Source Code Pro',monospace;font-size:.87rem;font-weight:600;}
+    .skill-card-desc{font-size:.77rem;color:var(--gray);line-height:1.65;}
+    .skill-bar-track{height:2px;background:var(--gray-light);margin-top:10px;}
+    .skill-bar-fill{height:100%;background:linear-gradient(to right,var(--gold),var(--gold-light));width:0;transition:width 1s ease;}
+    .skill-chip-grid{display:flex;flex-wrap:wrap;gap:8px;}
+    .skill-chip{padding:5px 13px;background:var(--off-white);border:1px solid var(--gold-light);font-family:'Source Code Pro',monospace;font-size:.77rem;transition:all .2s;}
+    .skill-chip:hover{background:var(--gold-pale);border-color:var(--gold);}
+
+    /* WORKS */
+    #works{background:var(--off-white);}
+    .works-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:32px;}
+    .work-card{background:var(--white);border:1px solid var(--gray-light);overflow:hidden;transition:all .35s;cursor:pointer;}
+    .work-card:hover{box-shadow:0 14px 52px rgba(0,0,0,.1);transform:translateY(-5px);}
+    .work-card:hover .work-overlay{opacity:1;}
+    .work-card:hover .work-thumb-img{transform:scale(1.04);}
+    .work-thumb{width:100%;aspect-ratio:16/9;position:relative;overflow:hidden;background:var(--dark);}
+    .work-thumb-img{width:100%;height:100%;object-fit:cover;transition:transform .5s;}
+    .work-thumb-img.zoom-fill{transform:scale(1.18);}
+    .work-card:hover .work-thumb-img.zoom-fill{transform:scale(1.24);}
+    .work-overlay{position:absolute;inset:0;background:rgba(201,168,76,.15);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .3s;}
+    .work-overlay span{padding:8px 20px;border:1px solid white;color:white;font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;}
+    .work-body{padding:22px 24px;}
+    .work-tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:9px;}
+    .work-tag{font-size:.67rem;padding:2px 8px;border:1px solid var(--gold-light);color:var(--gold);letter-spacing:.07em;font-family:'Source Code Pro',monospace;}
+    .work-tag.accent{background:var(--gold);color:white;border-color:var(--gold);}
+    .work-title{font-size:1.06rem;font-weight:700;margin-bottom:7px;line-height:1.4;}
+    .work-desc{font-size:.83rem;color:var(--gray);line-height:1.82;margin-bottom:16px;}
+    .btn-detail{display:inline-flex;align-items:center;gap:6px;padding:8px 18px;background:linear-gradient(135deg,var(--gold) 0%,#B8960A 100%);color:white;font-size:.76rem;letter-spacing:.1em;text-transform:uppercase;border:none;cursor:pointer;font-family:'Noto Sans JP',sans-serif;transition:all .25s;}
+    .btn-detail:hover{box-shadow:0 4px 16px rgba(201,168,76,.4);transform:translateY(-1px);}
+
+    /* MODAL */
+    .modal-overlay{position:fixed;inset:0;background:rgba(26,23,20,.82);z-index:500;display:flex;align-items:flex-start;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s;padding:40px 20px;overflow-y:auto;}
+    .modal-overlay.open{opacity:1;pointer-events:all;}
+    .modal-panel{background:var(--white);max-width:920px;width:100%;position:relative;margin:auto;animation:modalIn .35s ease;}
+    @keyframes modalIn{from{transform:translateY(24px);opacity:0}to{transform:translateY(0);opacity:1}}
+
+    /* Floating close button */
+    .modal-close-float{display:none;position:fixed;top:72px;right:28px;z-index:600;width:38px;height:38px;background:rgba(26,23,20,.72);border-radius:50%;border:none;cursor:pointer;align-items:center;justify-content:center;color:white;font-size:1rem;line-height:1;transition:background .2s;}
+    .modal-close-float:hover{background:rgba(26,23,20,.95);}
+    .modal-overlay.open .modal-close-float{display:flex;}
+
+    /* Modal hero — always 16:9 fill */
+    .modal-hero-img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block;}
+    .modal-hero-img.pos-top{object-position:top;}
+    .modal-hero-video{width:100%;aspect-ratio:16/9;object-fit:cover;display:block;background:#000;}
+
+    .modal-body{padding:32px 40px 16px;}
+    .modal-tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px;}
+    .modal-tag{font-size:.66rem;padding:3px 9px;border:1px solid var(--gold-light);color:var(--gold);font-family:'Source Code Pro',monospace;}
+    .modal-tag.accent{background:var(--gold);color:white;border-color:var(--gold);}
+    .modal-title{font-family:'Cinzel',serif;font-size:1.55rem;font-weight:600;letter-spacing:.04em;margin-bottom:6px;line-height:1.25;}
+    .modal-date{font-family:'Source Code Pro',monospace;font-size:.75rem;color:var(--gold);letter-spacing:.1em;margin-bottom:24px;}
+    /* 2-column meta (Role + Tools) */
+    .modal-meta{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--gray-light);margin-bottom:28px;}
+    .modal-meta-item{padding:14px 18px;border-right:1px solid var(--gray-light);}
+    .modal-meta-item:last-child{border-right:none;}
+    .modal-meta-label{font-size:.65rem;letter-spacing:.2em;color:var(--gold);text-transform:uppercase;margin-bottom:6px;font-family:'Cinzel',serif;}
+    .modal-meta-value{font-size:.83rem;line-height:1.6;}
+    .modal-overview{font-size:.92rem;line-height:2.05;opacity:.84;margin-bottom:32px;}
+    .modal-section{margin-bottom:32px;}
+    .modal-section-title{font-family:'Cinzel',serif;font-size:.72rem;letter-spacing:.3em;color:var(--gold);text-transform:uppercase;margin-bottom:12px;padding-left:14px;border-left:2px solid var(--gold);}
+    .modal-section-text{font-size:.88rem;line-height:1.96;opacity:.82;margin-bottom:12px;}
+    .modal-img{width:100%;display:block;margin:8px 0;border:1px solid var(--gray-light);}
+    .modal-video{width:100%;display:block;margin:8px 0;border:1px solid var(--gray-light);background:#000;}
+    /* 2-up side by side */
+    .modal-pair{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:8px 0;}
+    .modal-pair>*{display:flex;flex-direction:column;}
+    .modal-pair img,.modal-pair video{width:100%;flex:1;min-height:0;object-fit:cover;display:block;border:1px solid var(--gray-light);}
+    /* portrait images – contain instead of cover, with bg */
+    .modal-pair.portrait img{object-fit:contain;background:var(--off-white);max-height:300px;}
+    /* 3-up */
+    .modal-trio{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin:8px 0;}
+    .modal-trio img{width:100%;display:block;border:1px solid var(--gray-light);}
+    /* 5-up (rank row) */
+    .modal-five{display:grid;grid-template-columns:repeat(5,1fr);gap:4px;margin:8px 0;}
+    .modal-five img{width:100%;display:block;border:1px solid var(--gray-light);}
+    /* プロンプト+デモ layout — image natural height, video matches */
+    .aituber-pair{display:flex;gap:10px;margin:8px 0;align-items:stretch;}
+    .aituber-pair-left{width:50%;flex-shrink:0;display:flex;flex-direction:column;}
+    .aituber-pair-left img{width:100%;height:auto;display:block;border:1px solid var(--gray-light);}
+    .aituber-pair-right{flex:1;display:flex;flex-direction:column;min-width:0;}
+    .aituber-pair-right video{width:100%;flex:1;object-fit:cover;display:block;border:1px solid var(--gray-light);min-height:0;background:#000;}
+    /* caption */
+    .modal-caption{font-size:.73rem;color:var(--gray);text-align:center;margin-top:3px;margin-bottom:10px;line-height:1.5;}
+    .modal-caption a{color:var(--gold);text-decoration:none;border-bottom:1px solid var(--gold-light);}
+    .modal-caption a:hover{border-color:var(--gold);}
+    /* code */
+    .code-block{background:var(--code-bg);color:#e8d5a3;font-family:'Source Code Pro',monospace;font-size:.78rem;padding:18px 20px;line-height:1.75;margin:12px 0;overflow-x:auto;border-left:3px solid var(--gold);white-space:pre;}
+    .code-comment{color:#7c7060;}
+    .code-kw{color:#c9a84c;}
+    /* modal links + bottom close */
+    .modal-links{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:16px;}
+    .modal-link{display:inline-flex;align-items:center;gap:8px;padding:9px 20px;border:1px solid var(--gold-light);color:var(--gold);text-decoration:none;font-size:.79rem;letter-spacing:.08em;transition:all .25s;}
+    .modal-link:hover{background:var(--gold-pale);border-color:var(--gold);}
+    .modal-bottom{padding:24px 40px 36px;border-top:1px solid var(--gray-light);display:flex;justify-content:center;}
+    .btn-close-modal{padding:11px 40px;background:var(--off-white);border:1px solid var(--gray-light);color:var(--dark);font-size:.82rem;letter-spacing:.12em;cursor:pointer;font-family:'Noto Sans JP',sans-serif;transition:all .25s;}
+    .btn-close-modal:hover{background:var(--dark);color:white;border-color:var(--dark);}
+
+    /* CONTACT */
+    #contact{background:var(--dark);position:relative;overflow:hidden;}
+    .contact-bg{position:absolute;inset:0;background:radial-gradient(circle at 50% 50%,rgba(201,168,76,.05) 0%,transparent 60%);pointer-events:none;}
+    #contact .section-title{color:var(--white);}
+    .contact-center{text-align:center;position:relative;z-index:1;}
+    .contact-mail-box{display:inline-flex;flex-direction:column;align-items:center;gap:14px;padding:36px 56px;border:1px solid rgba(201,168,76,.3);margin-top:8px;}
+    .contact-mail-label{font-family:'Cinzel',serif;font-size:.65rem;letter-spacing:.3em;color:var(--gold);text-transform:uppercase;}
+    .contact-mail-addr{font-family:'Source Code Pro',monospace;font-size:1rem;color:var(--white);text-decoration:none;letter-spacing:.05em;transition:color .2s;}
+    .contact-mail-addr:hover{color:var(--gold);}
+
+    /* FOOTER */
+    footer{background:var(--dark-mid);padding:24px 56px;display:flex;align-items:center;justify-content:space-between;}
+    footer .logo{font-family:'Cinzel',serif;font-size:.88rem;color:var(--gold);letter-spacing:.2em;}
+    footer .copy{font-size:.72rem;color:rgba(255,255,255,.26);letter-spacing:.05em;}
+
+    /* FADE IN */
+    .fade-in{opacity:0;transform:translateY(18px);transition:opacity .65s ease,transform .65s ease;}
+    .fade-in.visible{opacity:1;transform:translateY(0);}
+
+    @media(max-width:768px){
+      nav{padding:0 20px;} .nav-links{display:none;}
+      section{padding:80px 20px;}
+      .about-grid{grid-template-columns:1fr;gap:36px;}
+      .skills-grid{grid-template-columns:1fr 1fr;}
+      .works-grid{grid-template-columns:1fr;}
+      footer{flex-direction:column;gap:6px;text-align:center;padding:24px 20px;}
+      .modal-meta{grid-template-columns:1fr;}
+      .modal-meta-item{border-right:none;border-bottom:1px solid var(--gray-light);}
+      .modal-pair,.modal-trio,.modal-five{grid-template-columns:1fr;}
+      .aituber-pair{flex-direction:column;}
+      .modal-body{padding:24px 20px 16px;}
+      .modal-bottom{padding:20px;}
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo">KAMEI</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#history">History</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#works">Works</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">BCI · AI · Game Development · VTuber Technology</p>
+    <h1 class="hero-name"><span>Ryota KAMEI</span></h1>
+    <p class="hero-subtitle">Shibaura Institute of Technology</p>
+    <p class="hero-tagline">今はまだ一般的でない技術や体験を、未来の当たり前にしていく。<br>ゲーム・AI・生体情報を組み合わせ、人の能力と表現を拡張する。</p>
+    <a href="#works" class="hero-cta">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" stroke="white" stroke-width="1.2"/><path d="M5 4.5L9 7L5 9.5" fill="white"/></svg>
+      View My Works
+    </a>
+  </div>
+  <div class="hero-scroll"><span>Scroll</span><div class="hero-scroll-line"></div></div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-inner">
+    <div class="section-header fade-in">
+      <p class="section-eyebrow">Profile</p>
+      <h2 class="section-title">About Me</h2>
+      <div class="section-divider"></div>
+    </div>
+    <div class="about-grid">
+      <div class="about-photo-wrap fade-in">
+        <img src="img/AboutMe/証明写真_2025_04_29.jpg" alt="亀井涼太" class="about-photo">
+        <div class="about-photo-frame"></div>
+        <div class="awards-list">
+          <div class="award-item">
+            <span style="color:var(--gold)">🏆</span>
+            <span class="award-text"><a href="https://tokyobcihackathon.com/hackathon" target="_blank">Tokyo BCI Hackathon 2025</a> &nbsp;<strong>準優勝</strong></span>
+          </div>
+          <div class="award-item">
+            <span style="color:var(--gold)">🏅</span>
+            <span class="award-text"><a href="https://www.pref.fukushima.lg.jp/uploaded/attachment/495748.pdf" target="_blank">令和3年度 野口英世賞</a> &nbsp;<strong>入選</strong></span>
+          </div>
+          <div class="award-item">
+            <span style="color:var(--gold)">🏅</span>
+            <span class="award-text"><a href="https://www.iee.jp/pes/u-21-2021-award/" target="_blank">電気学会 U-21 学生研究発表会</a> &nbsp;<strong>奨励賞</strong></span>
+          </div>
+        </div>
+      </div>
+      <div class="fade-in">
+        <p class="about-name-jp">亀井 涼太（22）</p>
+        <p class="about-name-en">Ryota KAMEI</p>
+        <div class="about-meta">
+          <div class="about-meta-item"><span class="about-meta-label">所属</span><span>芝浦工業大学大学院 理工学研究科</span></div>
+          <div class="about-meta-item"><span class="about-meta-label">研究室</span><span>生体通信工学研究室</span></div>
+          <div class="about-meta-item"><span class="about-meta-label">研究テーマ</span><span>電流源推定を用いた日常動作想起の判別に向けた基礎的検討</span></div>
+          <div class="about-meta-item"><span class="about-meta-label">関心領域</span><span>BCI / AI / ゲーム開発 / VTuber Technology</span></div>
+        </div>
+        <p class="about-desc">ゲーム制作をきっかけにプログラミングを学び始め、Unity / Unreal Engine による開発に加え、3DモデリングやAI技術の活用など、必要な技術をその都度学びながら活動の幅を広げてきました。Brain Computer Interface（BCI）に関心を持ち、現在は電流源推定を用いた脳活動解析に取り組んでいます。</p>
+        <div class="about-vision">
+          <p class="about-vision-label">Vision</p>
+          <p class="about-vision-text">今はまだ一般的でない技術や体験を、未来の当たり前にしていくことを目指しています。ゲーム、AI、生体情報を組み合わせることで、人の能力や表現を拡張する新しいインターフェースを作りたいと考えています。</p>
+        </div>
+        <p class="about-desc" style="font-size:.87rem">BCIに興味を持った原点は、アニメ『ソードアート・オンライン』に登場するような、脳とコンピュータが直接つながるインターフェースへの憧れです。脳波から人の動作意図を読み取り、ゲームやAI、ロボットなどを動かす技術に可能性を感じています。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HISTORY -->
+<section id="history">
+  <div class="section-inner">
+    <div class="section-header fade-in">
+      <p class="section-eyebrow">Timeline</p>
+      <h2 class="section-title">History</h2>
+      <div class="section-divider"></div>
+    </div>
+    <div class="timeline fade-in">
+      <div class="timeline-item"><div class="timeline-dot"></div><p class="timeline-date">2019/4 〜 2022/3</p><p class="timeline-title">高校生活 ／ スーパーサイエンス部</p><p class="timeline-desc">科学技術研究・各種科学コンテストに取り組む。電気学会U-21奨励賞、野口英世賞入選を経験。</p></div>
+      <div class="timeline-item"><div class="timeline-dot"></div><p class="timeline-date">2022/4 〜 2026/3</p><p class="timeline-title">芝浦工業大学 工学部 情報通信工学科</p><p class="timeline-desc">BCI技術に関心を持ち入学。生体通信工学・ゲーム制作への関心を広げる。</p></div>
+      <div class="timeline-item"><div class="timeline-dot"></div><p class="timeline-date">2023/10 〜 2025/1</p><p class="timeline-title">Unreal Engine 解説系 VTuber「それなれな」活動</p><p class="timeline-desc">UE5の技術をYouTubeで発信。解説動画・開発配信・Shortsを個人で制作・発信。</p></div>
+      <div class="timeline-item"><div class="timeline-dot"></div><p class="timeline-date">2024/9 〜</p><p class="timeline-title">芝浦工業大学 生体通信工学研究室 配属</p><p class="timeline-desc">脳波計測技術・電流源推定・神経生理学について学ぶ。</p></div>
+      <div class="timeline-item"><div class="timeline-dot"></div><p class="timeline-date">2025/3</p><p class="timeline-title">RealTimeAttack Timer 制作</p><p class="timeline-desc">マリオカート8DX RTA配信用タイマーをUnityで自作。</p></div>
+      <div class="timeline-item"><div class="timeline-dot"></div><p class="timeline-date">2025/5</p><p class="timeline-title">g.tec BR41N.IO BCI Hackathon 2025</p><p class="timeline-desc">BCI技術を使ったVRゲームを2日間で制作。</p></div>
+      <div class="timeline-item"><div class="timeline-dot"></div><p class="timeline-date">2025/8</p><p class="timeline-title">PicScatter 制作・販売</p><p class="timeline-desc">脳波計測実験用の視覚刺激作成ツールをアプリ化。Boothで販売開始。</p></div>
+      <div class="timeline-item"><div class="timeline-dot"></div><p class="timeline-date">2025/8</p><p class="timeline-title">Tokyo BCI Hackathon 2025 — <span style="color:var(--gold)">準優勝</span></p><p class="timeline-desc">BCI技術を使ったマッチングサービスを2日間で制作し、準優勝を獲得。</p></div>
+      <div class="timeline-item"><div class="timeline-dot"></div><p class="timeline-date">2026/1</p><p class="timeline-title">立体機動訓練シミュレーター 制作</p><p class="timeline-desc">Processingの授業課題として、巨人を駆逐する3Dアクションゲームを制作。</p></div>
+      <div class="timeline-item"><div class="timeline-dot"></div><p class="timeline-date">2026/1</p><p class="timeline-title">顔認識ゲームプレイシステム 開発</p><p class="timeline-desc">顔認識でゲーム機の物理ボタンを押下するシステムを開発。</p></div>
+      <div class="timeline-item"><div class="timeline-dot"></div><p class="timeline-date">2026/2</p><p class="timeline-title">AITuber「夜露しずく」 制作</p><p class="timeline-desc">Raspberry Pi 5上にローカルLLM環境を構築し、Live2D連携AITuberを制作。</p></div>
+      <div class="timeline-item"><div class="timeline-dot"></div><p class="timeline-date">2026/3 〜</p><p class="timeline-title">ホラーゲーム「研究事件」 制作中</p><p class="timeline-desc">Unityで本格的なゲーム開発を開始。シナリオ・モデリング・コーディングを担当。今秋リリース予定。</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-inner">
+    <div class="section-header fade-in">
+      <p class="section-eyebrow">Expertise</p>
+      <h2 class="section-title">Skills</h2>
+      <div class="section-divider"></div>
+    </div>
+    <p class="skills-label fade-in">— Core Skills</p>
+    <div class="skills-grid fade-in">
+      <div class="skill-card"><div class="skill-card-head"><div class="skill-icon"><img src="img/Skillsロゴ/Unity.png" alt="Unity"></div><p class="skill-card-name">Unity</p></div><p class="skill-card-desc">VR実験システムや3Dホラーゲーム等の制作に利用。ハッカソンでの開発・受賞経験あり。</p><div class="skill-bar-track"><div class="skill-bar-fill" data-w="85"></div></div></div>
+      <div class="skill-card"><div class="skill-card-head"><div class="skill-icon"><img src="img/Skillsロゴ/UE.png" alt="UE5"></div><p class="skill-card-name">Unreal Engine 5</p></div><p class="skill-card-desc">ノベルゲーム・3Dホラーゲーム・漫画制作等で利用。YouTubeでの技術発信経験あり。</p><div class="skill-bar-track"><div class="skill-bar-fill" data-w="80"></div></div></div>
+      <div class="skill-card"><div class="skill-card-head"><div class="skill-icon"><img src="img/Skillsロゴ/Python.png" alt="Python"></div><p class="skill-card-name">Python</p></div><p class="skill-card-desc">脳波（EEG）解析やAITuberのシステム開発に利用。Boothで販売した実績あり。</p><div class="skill-bar-track"><div class="skill-bar-fill" data-w="78"></div></div></div>
+      <div class="skill-card"><div class="skill-card-head"><div class="skill-icon"><img src="img/Skillsロゴ/C-C++.png" alt="C/C++"></div><p class="skill-card-name">C / C++</p></div><p class="skill-card-desc">CはTAとして学部生への指導経験あり。C++はパターン認識の授業でデータ解析に活用。</p><div class="skill-bar-track"><div class="skill-bar-fill" data-w="72"></div></div></div>
+      <div class="skill-card"><div class="skill-card-head"><div class="skill-icon"><img src="img/Skillsロゴ/MATLAB.png" alt="MATLAB"></div><p class="skill-card-name">MATLAB</p></div><p class="skill-card-desc">脳波（EEG）解析・電流源推定・トラッキングモーションデータの解析などに活用。</p><div class="skill-bar-track"><div class="skill-bar-fill" data-w="70"></div></div></div>
+      <div class="skill-card"><div class="skill-card-head"><div class="skill-icon"><img src="img/Skillsロゴ/PremierePro.png" alt="Premiere Pro"></div><p class="skill-card-name">Premiere Pro</p></div><p class="skill-card-desc">ゲーム開発関連動画の編集・研究における電流源推定の動態解析確認に使用。</p><div class="skill-bar-track"><div class="skill-bar-fill" data-w="74"></div></div></div>
+      <div class="skill-card"><div class="skill-card-head"><div class="skill-icon"><img src="img/Skillsロゴ/Photoshop.png" alt="Photoshop"></div><p class="skill-card-name">Photoshop</p></div><p class="skill-card-desc">サムネイル作成・テクスチャ素材編集・UIデザイン・2Dイラスト調整など開発全般に利用。</p><div class="skill-bar-track"><div class="skill-bar-fill" data-w="72"></div></div></div>
+      <div class="skill-card"><div class="skill-card-head"><div class="skill-icon"><img src="img/Skillsロゴ/VroidSTudio.png" alt="VRoid Studio"></div><p class="skill-card-name">VRoid Studio</p></div><p class="skill-card-desc">VTuberモデルやNPCモデルの素体作成・衣装モデリングに使用。一通りのモデル制作が可能。</p><div class="skill-bar-track"><div class="skill-bar-fill" data-w="70"></div></div></div>
+      <div class="skill-card"><div class="skill-card-head"><div class="skill-icon"><img src="img/Skillsロゴ/Live2Dcubism.png" alt="Live2D Cubism"></div><p class="skill-card-name">Live2D Cubism</p></div><p class="skill-card-desc">パーツ分けから、パラメータ設定・物理演算を用いたキャラクターモデリングまで一連のセットアップが可能。</p><div class="skill-bar-track"><div class="skill-bar-fill" data-w="68"></div></div></div>
+    </div>
+    <p class="skills-label fade-in" style="margin-top:44px">— Supporting Skills</p>
+    <div class="skill-chip-grid fade-in">
+      <span class="skill-chip">Blender</span><span class="skill-chip">Processing</span><span class="skill-chip">JavaScript</span><span class="skill-chip">Node.js</span><span class="skill-chip">Java</span><span class="skill-chip">Git / GitHub</span><span class="skill-chip">Raspberry Pi</span><span class="skill-chip">Local LLM</span><span class="skill-chip">OpenCV</span>
+    </div>
+  </div>
+</section>
+
+<!-- WORKS -->
+<section id="works">
+  <div class="section-inner">
+    <div class="section-header fade-in">
+      <p class="section-eyebrow">Portfolio</p>
+      <h2 class="section-title">Works</h2>
+      <div class="section-divider"></div>
+    </div>
+    <div class="works-grid">
+
+      <div class="work-card fade-in" onclick="openModal('m-kenkyu')">
+        <div class="work-thumb"><img src="img/研究事件/研究事件トプ画.png" alt="研究事件" class="work-thumb-img zoom-fill"><div class="work-overlay"><span>View Detail</span></div></div>
+        <div class="work-body">
+          <div class="work-tags"><span class="work-tag">Unity</span><span class="work-tag">C#</span><span class="work-tag">Blender</span><span class="work-tag">VRoid Studio</span><span class="work-tag accent">開発中</span></div>
+          <h3 class="work-title">ホラーゲーム「研究事件」</h3>
+          <p class="work-desc">大学研究室を舞台にした一人称視点の探索型ホラーゲーム。シナリオ・モデリング・プログラムを全て担当し、今秋リリースを目指して制作中。</p>
+          <div><button class="btn-detail" onclick="openModal('m-kenkyu')">View Detail</button></div>
+        </div>
+      </div>
+
+      <div class="work-card fade-in" onclick="openModal('m-aituber')">
+        <div class="work-thumb"><img src="img/夜露しずく/おばあさんの味.png" alt="夜露しずく" class="work-thumb-img" style="object-position:center 37.5%;"><div class="work-overlay"><span>View Detail</span></div></div>
+        <div class="work-body">
+          <div class="work-tags"><span class="work-tag">Python</span><span class="work-tag">Local LLM</span><span class="work-tag">Raspberry Pi</span><span class="work-tag">Live 2D</span></div>
+          <h3 class="work-title">AITuber「夜露しずく」</h3>
+          <p class="work-desc">Raspberry Pi 5上にローカルLLM環境を構築し、Live2Dモデルと音声会話を組み合わせたAITuberシステム。API依存を抑えた常時稼働構成を実現。</p>
+          <div><button class="btn-detail" onclick="openModal('m-aituber')">View Detail</button></div>
+        </div>
+      </div>
+
+      <div class="work-card fade-in" onclick="openModal('m-face')">
+        <div class="work-thumb"><img src="img/顔認識マリカー/左ON.png" alt="顔認識" class="work-thumb-img"><div class="work-overlay"><span>View Detail</span></div></div>
+        <div class="work-body">
+          <div class="work-tags"><span class="work-tag">Python</span><span class="work-tag">OpenCV</span><span class="work-tag">Raspberry Pi</span><span class="work-tag">Computer Vision</span></div>
+          <h3 class="work-title">顔認識ゲームプレイシステム</h3>
+          <p class="work-desc">顔の動きをゲーム操作コマンドに変換し、サーボモーターで物理ボタンを押下する入力システム。手を使わずにマリオカートDSをプレイできる。</p>
+          <div><button class="btn-detail" onclick="openModal('m-face')">View Detail</button></div>
+        </div>
+      </div>
+
+      <div class="work-card fade-in" onclick="openModal('m-inner')">
+        <div class="work-thumb"><img src="img/InnerRank/InnerRankトップ.png" alt="InnerRank" class="work-thumb-img"><div class="work-overlay"><span>View Detail</span></div></div>
+        <div class="work-body">
+          <div class="work-tags"><span class="work-tag">Unity</span><span class="work-tag">C#</span><span class="work-tag">Hackathon</span><span class="work-tag">BCI</span><span class="work-tag">UDP</span><span class="work-tag">複数人開発</span><span class="work-tag accent">準優勝</span></div>
+          <h3 class="work-title">InnerRank — Tokyo BCI Hackathon 2025</h3>
+          <p class="work-desc">マッチングサービスにBCI技術を融合した準優勝作品。プロフィール画像への脳波反応から潜在的な好意をランキング化するシステムを実装。</p>
+          <div><button class="btn-detail" onclick="openModal('m-inner')">View Detail</button></div>
+        </div>
+      </div>
+
+      <div class="work-card fade-in" onclick="openModal('m-tachi')">
+        <div class="work-thumb"><img src="img/立体機動シミュ/サムネ.png" alt="立体機動" class="work-thumb-img"><div class="work-overlay"><span>View Detail</span></div></div>
+        <div class="work-body">
+          <div class="work-tags"><span class="work-tag">Processing</span></div>
+          <h3 class="work-title">立体機動訓練シミュレーター</h3>
+          <p class="work-desc">Processingで制作した3Dアクションゲーム。マウスの回転をワイヤー速度に、ドラッグ軌跡を斬撃判定に変換する独自アルゴリズムを実装。</p>
+          <div><button class="btn-detail" onclick="openModal('m-tachi')">View Detail</button></div>
+        </div>
+      </div>
+
+      <div class="work-card fade-in" onclick="openModal('m-pic')">
+        <div class="work-thumb"><img src="img/PicScatter/商品ページ1.png" alt="PicScatter" class="work-thumb-img"><div class="work-overlay"><span>View Detail</span></div></div>
+        <div class="work-body">
+          <div class="work-tags"><span class="work-tag">Python</span><span class="work-tag">Tkinter</span><span class="work-tag">Pillow</span><span class="work-tag">Image Processing</span><span class="work-tag accent">Booth販売</span></div>
+          <h3 class="work-title">PicScatter — 画像分割・再配置アプリ</h3>
+          <p class="work-desc">画像を分割・ランダム再配置するPython製GUIアプリ。脳波実験の視覚刺激作成が目的。GUI操作で分割から画像保存まで完結。Boothで販売中。</p>
+          <div><button class="btn-detail" onclick="openModal('m-pic')">View Detail</button></div>
+        </div>
+      </div>
+
+      <div class="work-card fade-in" onclick="openModal('m-rta')">
+        <div class="work-thumb"><img src="img/RTATimer/rtaTimer.png" alt="RTA" class="work-thumb-img"><div class="work-overlay"><span>View Detail</span></div></div>
+        <div class="work-body">
+          <div class="work-tags"><span class="work-tag">Unity</span><span class="work-tag">C#</span></div>
+          <h3 class="work-title">RealTimeAttack Timer</h3>
+          <p class="work-desc">マリオカート8DX RTA配信用タイマー。コース名・アイコン・自己ベストは外部ファイルで管理し、コードを変更せず表示内容を更新できる構成。</p>
+          <div><button class="btn-detail" onclick="openModal('m-rta')">View Detail</button></div>
+        </div>
+      </div>
+
+      <div class="work-card fade-in" onclick="openModal('m-vtb')">
+        <div class="work-thumb"><img src="img/それなれな/それなトップ.png" alt="それなれな" class="work-thumb-img"><div class="work-overlay"><span>View Detail</span></div></div>
+        <div class="work-body">
+          <div class="work-tags"><span class="work-tag">UE5</span><span class="work-tag">Blueprint</span><span class="work-tag">VTuber</span><span class="work-tag">YouTube</span><span class="work-tag">Technical Communication</span></div>
+          <h3 class="work-title">UE5 解説系VTuber「それなれな」</h3>
+          <p class="work-desc">Unreal Engine 5の初学者向けコンテンツを企画・制作・発信。解説動画・開発配信・Shortsを個人で制作し、英語資料から習得した知識を日本語で発信。</p>
+          <div><button class="btn-detail" onclick="openModal('m-vtb')">View Detail</button></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-bg"></div>
+  <div class="section-inner">
+    <div class="section-header fade-in">
+      <p class="section-eyebrow" style="color:rgba(201,168,76,.6)">Get In Touch</p>
+      <h2 class="section-title">Contact</h2>
+      <div class="section-divider"></div>
+    </div>
+    <div class="contact-center fade-in">
+      <div class="contact-mail-box">
+        <p class="contact-mail-label">Mail</p>
+        <a href="mailto:af22059@shibaura-it.ac.jp" class="contact-mail-addr">af22059@shibaura-it.ac.jp</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span class="logo">Ryota KAMEI</span>
+  <span class="copy">© 2026 Ryota KAMEI. All rights reserved.</span>
+</footer>
+
+<!-- ═══════════════ MODALS ═══════════════ -->
+
+<!-- 研究事件 -->
+<div id="m-kenkyu" class="modal-overlay" onclick="closeIfOverlay(event,'m-kenkyu')">
+  <div class="modal-panel">
+    <button class="modal-close-float" onclick="closeModal('m-kenkyu')">✕</button>
+    <img src="img/研究事件/研究事件トプ画.png" alt="研究事件" class="modal-hero-img zoom-fill" style="object-fit:cover;">
+    <div class="modal-body">
+      <div class="modal-tags"><span class="modal-tag">Unity</span><span class="modal-tag">C#</span><span class="modal-tag">Blender</span><span class="modal-tag">VRoid Studio</span><span class="modal-tag accent">今秋リリース予定</span></div>
+      <h2 class="modal-title">ホラーゲーム「研究事件」</h2>
+      <p class="modal-date">2026/3 〜 制作中</p>
+      <div class="modal-meta">
+        <div class="modal-meta-item"><p class="modal-meta-label">Role</p><p class="modal-meta-value">企画・シナリオ<br>3Dモデリング<br>プログラム全般</p></div>
+        <div class="modal-meta-item"><p class="modal-meta-label">Tools</p><p class="modal-meta-value">Unity / C#<br>VRoid Studio / Blender<br>Photoshop</p></div>
+      </div>
+      <p class="modal-overview">夜の大学研究室を舞台にした一人称視点のホラーゲーム。探索・会話選択・PC操作・パズル・チェイスを組み合わせ、プレイヤーの行動によって複数のエンディングへ分岐する構成。ストーリー進行を大フェーズ（SP）と小フェーズ（miniStoryPhase）の二層構造で管理し、各イベントを専用 Controller に分離して実装している。</p>
+
+      <div class="modal-section">
+        <p class="modal-section-title">二層フェーズ管理システム</p>
+        <p class="modal-section-text">大フェーズ（SP）でゲーム全体の進行を制御し、その中に小フェーズ（miniStoryPhase）を組み込むことで、各イベントの細かい分岐を管理。フェーズごとに専用のEventControllerが対応し、複数のエンディングへの分岐を実現している。</p>
+        <img src="img/研究事件/システム管理.png" alt="フェーズ管理システム" class="modal-img">
+        <p class="modal-caption">大フェーズ × 小フェーズによる二層ストーリー管理構造</p>
+      </div>
+
+      <div class="modal-section">
+        <p class="modal-section-title">Exploration → PC Operation</p>
+        <p class="modal-section-text">3D空間の探索からPCへ近づくとズームインし、2D画面でのPC操作へシームレスに遷移するシステムを実装。操作終了後は自動的に3D探索に戻る。</p>
+        <video class="modal-video" autoplay muted loop playsinline controls><source src="img/研究事件/探索からPC.mp4" type="video/mp4"></video>
+        <p class="modal-caption">3D探索 → PCズームイン → 2D操作のシームレスな接続</p>
+      </div>
+
+      <div class="modal-section">
+        <p class="modal-section-title">CSV 駆動パズルシステム</p>
+        <p class="modal-section-text">脳内ネットワークを模した3Dライツアウトゲームとして実装。ノード情報・接続情報をCSVから読み込み、Puzzle IDごとに異なる問題を生成する。CSVを差し替えるだけで問題内容を追加・変更できる構成。</p>
+        <div class="modal-pair">
+          <div><img src="img/研究事件/day1パズル.png" alt="Day1 パズル"><p class="modal-caption">Day1 パズル（CSV定義 ＆ ゲーム画面）</p></div>
+          <div><img src="img/研究事件/day2パズル.png" alt="Day2 パズル"><p class="modal-caption">Day2 パズル（CSV定義 ＆ ゲーム画面）</p></div>
+        </div>
+      </div>
+
+      <div class="modal-section">
+        <p class="modal-section-title">キャラクターデザイン ＆ NavMesh チェイス</p>
+        <p class="modal-section-text">VRoid Studioでキャラクター素体を作成し、Blenderで調整後Unityへインポート。チェイスイベントではNavMeshを使い、障害物を回避しながらプレイヤーを追跡する。</p>
+        <div class="modal-pair">
+          <div><img src="img/研究事件/vroidでキャラメイク.png" alt="VRoidでキャラメイク"><p class="modal-caption">VRoid Studio でのキャラクター制作</p></div>
+          <div><img src="img/研究事件/navmeshの様子.png" alt="NavMeshの様子"><p class="modal-caption">NavMesh によるキャラクター追跡</p></div>
+        </div>
+      </div>
+
+      <div class="modal-section">
+        <p class="modal-section-title">ホラー演出</p>
+        <p class="modal-section-text">砂嵐ノイズ・停電・青白い光・霊の出現など複数のホラー演出を実装。演出中はプレイヤーの操作を一時停止し、終了後に復帰させることで意図したタイミングで恐怖演出を見せる。</p>
+        <div class="modal-pair">
+          <div>
+            <video class="modal-video" autoplay muted loop playsinline controls><source src="img/研究事件/砂嵐画面デモ.mp4" type="video/mp4"></video>
+            <p class="modal-caption">砂嵐演出デモ</p>
+          </div>
+          <div>
+            <video class="modal-video" autoplay muted loop playsinline controls><source src="img/研究事件/隣の席青く光る.mp4" type="video/mp4"></video>
+            <p class="modal-caption">停電後に隣の席だけが青白く光る</p>
+          </div>
+        </div>
+        <div class="modal-pair">
+          <div>
+            <video class="modal-video" autoplay muted loop playsinline controls><source src="img/研究事件/いるわ.mp4" type="video/mp4"></video>
+            <p class="modal-caption">振り返ると霊がいた</p>
+          </div>
+          <div>
+            <video class="modal-video" autoplay muted loop playsinline controls><source src="img/研究事件/霊襲撃.mp4" type="video/mp4"></video>
+            <p class="modal-caption">霊による追跡・襲撃シーン</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-bottom"><button class="btn-close-modal" onclick="closeModal('m-kenkyu')">閉じる</button></div>
+  </div>
+</div>
+
+<!-- 夜露しずく -->
+<div id="m-aituber" class="modal-overlay" onclick="closeIfOverlay(event,'m-aituber')">
+  <div class="modal-panel">
+    <button class="modal-close-float" onclick="closeModal('m-aituber')">✕</button>
+    <img src="img/夜露しずく/おばあさんの味.png" alt="夜露しずく" class="modal-hero-img" style="object-position:center 37.5%;">
+    <div class="modal-body">
+      <div class="modal-tags"><span class="modal-tag">Python</span><span class="modal-tag">Local LLM</span><span class="modal-tag">Raspberry Pi 5</span><span class="modal-tag">Live2D Cubism</span><span class="modal-tag">VOICEVOX</span></div>
+      <h2 class="modal-title">AITuber「夜露しずく」</h2>
+      <p class="modal-date">2026/2</p>
+      <div class="modal-meta">
+        <div class="modal-meta-item"><p class="modal-meta-label">Role</p><p class="modal-meta-value">企画・実装<br>キャラクターデザイン<br>Live2Dモデリング</p></div>
+        <div class="modal-meta-item"><p class="modal-meta-label">Tools</p><p class="modal-meta-value">Python / LFM2.5<br>Raspberry Pi 5 / Tailscale<br>CLIP STUDIO PAINT<br>Live2D Cubism / VOICEVOX</p></div>
+      </div>
+      <p class="modal-overview">Raspberry Pi 5上にローカルLLMを構築し、コメントに対してキャラクターが音声付きで返答するAITuberシステム。PixiJS + Live2D Cubism SDKでモデルをWebGL描画し、コメント入力・LLM応答生成・音声合成・表情/口パクを連携。クラウドAPI依存と常時稼働コストを抑えるため、軽量LLMをローカルで運用する構成を検証した。</p>
+
+      <div class="modal-section">
+        <p class="modal-section-title">キャラクターデザイン ＆ Live2Dモデリング</p>
+        <p class="modal-section-text">キャラクター「夜露しずく」のイラスト制作からLive2Dモデリングまでを自作。黒基調の衣装・ドクロ帽子で不良少女的な雰囲気を設計し、LLMの口調にも反映した。</p>
+        <div class="modal-pair">
+          <div><img src="img/夜露しずく/パーツ分けイラスト.png" alt="パーツ分けイラスト"><p class="modal-caption">CLIP STUDIO PAINT でのパーツ分けイラスト</p></div>
+          <div><img src="img/夜露しずく/Live2Dモデリング.png" alt="Live2Dモデリング"><p class="modal-caption">Live2D Cubism Editor でのモデリング</p></div>
+        </div>
+      </div>
+
+      <div class="modal-section">
+        <p class="modal-section-title">システム構成 — 5段階パイプライン</p>
+        <p class="modal-section-text">①Tailscaleによるポート開放なしの安全な通信 → ②WebクライアントからRaspberry Piへコメント送信 → ③ローカルLLMが応答生成 → ④VOICEVOX Engineで音声合成 → ⑤PixiJS + Live2D SDKでモデル表示・口パク同期</p>
+        <div class="aituber-pair">
+          <div class="aituber-pair-left">
+            <img src="img/夜露しずく/プロンプト.png" alt="プロンプト設計">
+            <p class="modal-caption">LLMへのキャラクタープロンプト設計（不良少女口調を付与）</p>
+          </div>
+          <div class="aituber-pair-right">
+            <video autoplay muted loop playsinline controls>
+              <source src="img/夜露しずく/AITuber.mov" type="video/quicktime">
+              <source src="img/夜露しずく/AITuber.mov" type="video/mp4">
+            </video>
+            <p class="modal-caption">会話デモ映像（※再生できない場合はSafariでご確認ください）</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-section">
+        <p class="modal-section-title">会話デモ — 実際の返答例</p>
+        <img src="img/夜露しずく/好きな食べ物.png" alt="好きな食べ物" class="modal-img">
+        <p class="modal-caption">好きな食べ物への返答例</p>
+        <img src="img/夜露しずく/ジャンルだよ！.png" alt="ジャンルだよ！" class="modal-img">
+        <p class="modal-caption">ジャンルを答えるシーン — キャラクター性のある返答例</p>
+      </div>
+    </div>
+    <div class="modal-bottom"><button class="btn-close-modal" onclick="closeModal('m-aituber')">閉じる</button></div>
+  </div>
+</div>
+
+<!-- 顔認識 -->
+<div id="m-face" class="modal-overlay" onclick="closeIfOverlay(event,'m-face')">
+  <div class="modal-panel">
+    <button class="modal-close-float" onclick="closeModal('m-face')">✕</button>
+    <img src="img/顔認識マリカー/左ON.png" alt="顔認識" class="modal-hero-img">
+    <div class="modal-body">
+      <div class="modal-tags"><span class="modal-tag">Python</span><span class="modal-tag">OpenCV</span><span class="modal-tag">Raspberry Pi</span><span class="modal-tag">サーボモーター</span><span class="modal-tag">Computer Vision</span></div>
+      <h2 class="modal-title">顔認識ゲームプレイシステム</h2>
+      <p class="modal-date">2026/1 ／ 非商用の個人開発システム</p>
+      <div class="modal-meta">
+        <div class="modal-meta-item"><p class="modal-meta-label">Role</p><p class="modal-meta-value">企画・実装<br>機構制作・動作検証</p></div>
+        <div class="modal-meta-item"><p class="modal-meta-label">Tools</p><p class="modal-meta-value">Python / OpenCV<br>Raspberry Pi<br>サーボモーター</p></div>
+      </div>
+      <p class="modal-overview">表情認識ゲームプレイシステムは、顔の動きをゲーム操作コマンドに変換し、サーボモーターで物理ボタンを押下するインターフェース。ゲーム機本体に電気的な改造を加えず、外部から物理的にボタンを押すことで操作する点が特徴。</p>
+
+      <div class="modal-section">
+        <p class="modal-section-title">システム構成</p>
+        <p class="modal-section-text">カメラで顔画像を取得 → OpenCVで口の開閉・首の傾きを検出 → 操作コマンドに変換 → Raspberry Piからサーボモーターを制御してDSの物理ボタンを押下。</p>
+        <div class="modal-pair">
+          <div><img src="img/顔認識マリカー/image.png" alt="システム構成図"><p class="modal-caption">システム構成図</p></div>
+          <div><img src="img/顔認識マリカー/システム構成写真.jpg" alt="システム構成写真"><p class="modal-caption">実際の制御機構の外観</p></div>
+        </div>
+      </div>
+
+      <div class="modal-section">
+        <p class="modal-section-title">コマンドマッピング — 顔特徴点による判定</p>
+        <p class="modal-section-text">OpenCVの顔特徴点検出（lbfmodel.yaml）を用い、口・目の位置を取得。<br><strong>口の開閉 → Aボタン（アクセル）：</strong>口周辺の縦横距離比が閾値を超えた場合に判定。<br><strong>首の左右傾き → 十字キー：</strong>両目を結ぶ線の角度が一定以上傾いた場合に左右入力として扱う。</p>
+        <img src="img/顔認識マリカー/ボタンと操作の対応.png" alt="ボタンと操作の対応" class="modal-img">
+        <p class="modal-caption">顔の動きとゲームボタンの対応関係</p>
+      </div>
+
+      <div class="modal-section">
+        <p class="modal-section-title">デモ映像</p>
+        <video class="modal-video" autoplay muted loop playsinline controls><source src="img/顔認識マリカー/顔認識マリオカート.mp4" type="video/mp4"></video>
+        <p class="modal-caption">顔認識でマリオカートDSをプレイするデモ</p>
+      </div>
+    </div>
+    <div class="modal-bottom"><button class="btn-close-modal" onclick="closeModal('m-face')">閉じる</button></div>
+  </div>
+</div>
+
+<!-- InnerRank -->
+<div id="m-inner" class="modal-overlay" onclick="closeIfOverlay(event,'m-inner')">
+  <div class="modal-panel">
+    <button class="modal-close-float" onclick="closeModal('m-inner')">✕</button>
+    <img src="img/InnerRank/InnerRankトップ.png" alt="InnerRank" class="modal-hero-img">
+    <div class="modal-body">
+      <div class="modal-tags"><span class="modal-tag">Unity</span><span class="modal-tag">C#</span><span class="modal-tag">Hackathon</span><span class="modal-tag">BCI</span><span class="modal-tag">UDP</span><span class="modal-tag">複数人開発</span><span class="modal-tag accent">🏆 準優勝</span></div>
+      <h2 class="modal-title">InnerRank — BCI × マッチングサービス</h2>
+      <p class="modal-date">2025/8 ／ <a href="https://tokyobcihackathon.com/hackathon" target="_blank" style="color:var(--gold)">Tokyo BCI Hackathon 2025</a></p>
+      <div class="modal-meta">
+        <div class="modal-meta-item"><p class="modal-meta-label">Role</p><p class="modal-meta-value">Unity実装<br>UDP通信設計<br>動作検証</p></div>
+        <div class="modal-meta-item"><p class="modal-meta-label">Tools</p><p class="modal-meta-value">Unity / C#<br>Unicorn Hybrid Black<br>UDP通信</p></div>
+      </div>
+      <p class="modal-overview">マッチングアプリのようにプロフィール画像を提示し、LIKE/NOT LIKE評価と脳波反応を同時取得するアプリ。明示的な評価に加え、脳波の特徴量（左右電極差・β/α比）を用いた潜在的な好感度スコアでランキング化する仕組みを開発。2日間のハッカソンで実装・発表し、準優勝を獲得。</p>
+
+      <div class="modal-section">
+        <p class="modal-section-title">ハッカソン — 発表 ＆ 開発</p>
+        <div class="modal-pair">
+          <div><img src="img/InnerRank/tokyobcihackathon.png" alt="ハッカソン発表"><p class="modal-caption">Tokyo BCI Hackathon 2025 での発表の様子</p></div>
+          <div><img src="img/InnerRank/develop.png" alt="Unity開発画面"><p class="modal-caption">ハッカソン中のUnity開発画面</p></div>
+        </div>
+      </div>
+
+      <div class="modal-section">
+        <p class="modal-section-title">アプリフロー</p>
+        <img src="img/InnerRank/プレイ画面.png" alt="プレイ画面" class="modal-img">
+        <p class="modal-caption">プロフィール画像の提示 ＆ LIKE/NOT LIKE 評価 → 脳波スコアに基づくランキング表示</p>
+      </div>
+
+      <div class="modal-section">
+        <p class="modal-section-title">技術構成 — EEGリアルタイム処理</p>
+        <p class="modal-section-text">g.tec社製Unicorn Hybrid Blackから6周波数帯域×8電極の脳波データをUDP通信でUnityに送信。プロフィール画像の表示中に取得した脳波から、左右電極間の差分とβ/α比を組み合わせた評価スコアを算出。</p>
+        <img src="img/InnerRank/評価システム.png" alt="評価システム" class="modal-img">
+        <p class="modal-caption">使用した脳波計（Unicorn Hybrid Black）＆ 評価スコア算出ロジック：左右電極差 ＋ β/α比による感情反応の補正</p>
+      </div>
+
+      <div class="modal-section">
+        <p class="modal-section-title">デモ映像</p>
+        <video class="modal-video" autoplay muted loop playsinline controls><source src="img/InnerRank/InnerRank.mp4" type="video/mp4"></video>
+        <p class="modal-caption">InnerRank アプリのデモ動画</p>
+      </div>
+    </div>
+    <div class="modal-bottom"><button class="btn-close-modal" onclick="closeModal('m-inner')">閉じる</button></div>
+  </div>
+</div>
+
+<!-- 立体機動 -->
+<div id="m-tachi" class="modal-overlay" onclick="closeIfOverlay(event,'m-tachi')">
+  <div class="modal-panel">
+    <button class="modal-close-float" onclick="closeModal('m-tachi')">✕</button>
+    <img src="img/立体機動シミュ/サムネ.png" alt="立体機動" class="modal-hero-img">
+    <div class="modal-body">
+      <div class="modal-tags"><span class="modal-tag">Processing</span><span class="modal-tag">3D Action</span></div>
+      <h2 class="modal-title">立体機動訓練シミュレーター</h2>
+      <p class="modal-date">2026/1 ／ 授業課題（個人制作）</p>
+      <div class="modal-meta">
+        <div class="modal-meta-item"><p class="modal-meta-label">Role</p><p class="modal-meta-value">企画・実装<br>ゲームデザイン</p></div>
+        <div class="modal-meta-item"><p class="modal-meta-label">Tools</p><p class="modal-meta-value">Processing</p></div>
+      </div>
+      <p class="modal-overview">Processingで制作した3Dアクションゲーム。マウスを回す操作をアンカーの巻き取り速度に変換し、ドラッグの速度と軌跡を斬撃判定に反映することで、立体機動らしい身体的な操作感を再現した。</p>
+
+      <div class="modal-section">
+        <p class="modal-section-title">デモ映像</p>
+        <video class="modal-video" autoplay muted loop playsinline controls><source src="img/立体機動シミュ/立体機動訓練シミュレーターshort.mp4" type="video/mp4"></video>
+        <p class="modal-caption">立体機動訓練シミュレーター ショートデモ</p>
+      </div>
+
+      <div class="modal-section">
+        <p class="modal-section-title">コアインタラクション設計</p>
+        <p class="modal-section-text"><strong>① マウス回転 → 接近速度：</strong>フレームごとのマウス角度変化量を取得し、その絶対値をアンカー巻き取り速度として加算。マウスを速く回すほど高速で巨人に接近する、フィジカルな操作感を実現した。<br><br><strong>② マウス軌跡 → 斬撃判定：</strong>マウスドラッグの軌跡から移動距離を計算し、閾値以上の速度でうなじ付近を通過した場合のみ有効打と判定。単なるクリックではなく「振り抜く」動作が必要な設計にした。<br><br><strong>③ 近づき過ぎたときのノックバック：</strong>巨人との距離が一定以下になると、強制ノックバック・タイム減少・レッドフラッシュを同時実行。巨人に接近しすぎないよう、プレイヤーへのリスクとして機能する。</p>
+        <div class="code-block"><span class="code-comment">// ① マウス回転 → 巻き取り速度に変換</span>
+<span class="code-kw">void</span> detectRotationAndMove() {
+  <span class="code-kw">float</span> currentAngle = atan2(mouseY - cy, mouseX - cx);
+  <span class="code-kw">float</span> delta = currentAngle - lastMouseAngle;
+  playerDist -= abs(delta) * ANCHOR_SPEED;
+}
+
+<span class="code-comment">// ② マウス軌跡 → 斬撃ダメージ計算</span>
+<span class="code-kw">void</span> updateBladeTrail() {
+  PVector s = mouseTrail.get(0);
+  PVector e = mouseTrail.get(mouseTrail.size()-1);
+  <span class="code-kw">float</span> d = PVector.dist(s, e);
+  <span class="code-kw">float</span> damage = (distToTitan &lt; 150) ? d * 2.5 : 0;
+}
+
+<span class="code-comment">// ③ 近づき過ぎ → ノックバック処理</span>
+<span class="code-kw">void</span> checkTooClose() {
+  <span class="code-kw">if</span> (distToTitan &lt; TOO_CLOSE_THRESHOLD) {
+    knockbackPlayer();
+    timeLeft -= KNOCKBACK_PENALTY;
+    triggerRedFlash();
+  }
+}</div>
+        <img src="img/立体機動シミュ/CoreInteraction.png" alt="コアインタラクション" class="modal-img">
+        <p class="modal-caption">ゲーム開始・アンカー接近・斬撃・ノックバックの各インタラクション</p>
+      </div>
+
+      <div class="modal-section">
+        <p class="modal-section-title">チュートリアル画面の進行</p>
+        <p class="modal-section-text">ゲーム開始から操作方法の提示、アンカー発射、巻き取り、接近、斬撃に至るまでのフローをcase0〜case4の画面で説明。各caseでプレイヤーへの指示内容が変わり、段階的に立体機動操作を習得できる構成にした。</p>
+        <img src="img/立体機動シミュ/チュートリアル進行.png" alt="チュートリアル進行" class="modal-img">
+        <p class="modal-caption">case0：ゲーム説明 → case1：アンカー発射 → case2：巻き取り → case3：接近 → case4：斬撃</p>
+      </div>
+
+      <div class="modal-section">
+        <p class="modal-section-title">ランク評価システム</p>
+        <p class="modal-section-text">制限時間内の討伐数に応じて S〜D の5段階で評価。S（10体↑）/ A（7体↑）/ B（4体↑）/ C（1体↑）/ D</p>
+        <img src="img/立体機動シミュ/ランク評価.png" alt="ランク評価" class="modal-img">
+        <p class="modal-caption">S / A / B / C / D の5段階ランク評価画面</p>
+      </div>
+    </div>
+    <div class="modal-bottom"><button class="btn-close-modal" onclick="closeModal('m-tachi')">閉じる</button></div>
+  </div>
+</div>
+
+<!-- PicScatter -->
+<div id="m-pic" class="modal-overlay" onclick="closeIfOverlay(event,'m-pic')">
+  <div class="modal-panel">
+    <button class="modal-close-float" onclick="closeModal('m-pic')">✕</button>
+    <img src="img/PicScatter/商品ページ1.png" alt="PicScatter" class="modal-hero-img">
+    <div class="modal-body">
+      <div class="modal-tags"><span class="modal-tag">Python</span><span class="modal-tag">Tkinter</span><span class="modal-tag">Pillow</span><span class="modal-tag">Image Processing</span><span class="modal-tag accent">Booth 販売中</span></div>
+      <h2 class="modal-title">PicScatter — 画像分割・ランダムシャッフルアプリ</h2>
+      <p class="modal-date">2025/8</p>
+      <div class="modal-meta">
+        <div class="modal-meta-item"><p class="modal-meta-label">Role</p><p class="modal-meta-value">企画・実装<br>GUI設計・Booth公開</p></div>
+        <div class="modal-meta-item"><p class="modal-meta-label">Tools</p><p class="modal-meta-value">Python / Tkinter / Pillow</p></div>
+      </div>
+      <p class="modal-overview">選択した画像を縦横に分割し、各ブロックをランダムに再配置するPython製GUIアプリ。脳波実験のオッドボール課題で使う視覚刺激の作成が目的。画像選択・分割数指定・seed値での再現性確保・プレビュー・保存をGUI上で完結できるよう設計し、Boothで公開・販売した。</p>
+
+      <div class="modal-section">
+        <p class="modal-section-title">GUI 設計 — Tkinter + Pillow</p>
+        <p class="modal-section-text">Tkinterで画像選択・分割数・seed値・補正方式・プレビュー・保存の操作UIを構築。Pillowで画像読み込み・サイズ補正・ブロック分割・再配置・PNG/JPEG保存を実装。6ステップのワークフローをGUI上で完結。</p>
+        <img src="img/PicScatter/tkinter1.png" alt="Tkinter GUI" class="modal-img">
+        <p class="modal-caption">Tkinter による GUI 操作画面</p>
+        <img src="img/PicScatter/pillow2.png" alt="Pillow 処理" class="modal-img">
+        <p class="modal-caption">Pillow による画像分割・再配置処理</p>
+      </div>
+
+      <div class="modal-section">
+        <p class="modal-section-title">出力バリエーション — 分割数による表現の変化</p>
+        <p class="modal-section-text">分割数が小さいと元画像の構造を残した崩し表現、大きいほどノイズに近い表現になる。</p>
+        <img src="img/PicScatter/生成バリエーション.png" alt="生成バリエーション" class="modal-img">
+        <p class="modal-caption">3×3 / 10×10 / 10×20 / 30×30 / 50×50 の分割バリエーション</p>
+      </div>
+
+      <div class="modal-section">
+        <p class="modal-section-title">ユースケース — 脳波実験 ＆ ゲーム演出への活用</p>
+        <p class="modal-section-text">脳波実験（オッドボール課題）では、高頻度の標準刺激と低頻度の標的刺激を混在させてERP（P300成分）を測定。またホラーゲーム「研究事件」の砂嵐演出の素材作成にも活用した。</p>
+        <img src="img/PicScatter/脳波実験刺激.png" alt="脳波実験刺激" class="modal-img">
+        <p class="modal-caption">標準刺激（高頻度）と標的刺激（低頻度）の比較</p>
+        <video class="modal-video" autoplay muted loop playsinline controls><source src="img/PicScatter/picscatter活用例.mp4" type="video/mp4"></video>
+        <p class="modal-caption">ホラーゲーム「研究事件」での砂嵐演出への活用例</p>
+      </div>
+
+      <div class="modal-links" style="justify-content:center;">
+        <a href="https://kaichankobo.booth.pm/items/7277021" target="_blank" class="modal-link">🛒 Booth で購入・ダウンロード</a>
+      </div>
+    </div>
+    <div class="modal-bottom"><button class="btn-close-modal" onclick="closeModal('m-pic')">閉じる</button></div>
+  </div>
+</div>
+
+<!-- RTA Timer -->
+<div id="m-rta" class="modal-overlay" onclick="closeIfOverlay(event,'m-rta')">
+  <div class="modal-panel">
+    <button class="modal-close-float" onclick="closeModal('m-rta')">✕</button>
+    <img src="img/RTATimer/rtaTimer.png" alt="RTA Timer" class="modal-hero-img">
+    <div class="modal-body">
+      <div class="modal-tags"><span class="modal-tag">Unity</span><span class="modal-tag">C#</span></div>
+      <h2 class="modal-title" style="font-family:'Noto Sans JP',sans-serif;font-weight:700;">RealTimeAttack Timer</h2>
+      <p class="modal-date">2025/3</p>
+      <div class="modal-meta">
+        <div class="modal-meta-item"><p class="modal-meta-label">Role</p><p class="modal-meta-value">企画・実装<br>動作検証</p></div>
+        <div class="modal-meta-item"><p class="modal-meta-label">Tools</p><p class="modal-meta-value">Unity / C#</p></div>
+      </div>
+      <p class="modal-overview">マリオカート8DXのRTA配信で使用するUnity製タイマー。各コース終了時に現在タイムを記録し、自己ベストとの差分をリアルタイム表示。コース名・アイコン・自己ベストは外部CSVで管理し、コードを変更せず表示内容を更新できる構成にした。</p>
+
+      <div class="modal-section">
+        <p class="modal-section-title">プログレスバー ＆ UI 詳細</p>
+        <div class="modal-pair">
+          <div>
+            <video class="modal-video" autoplay muted loop playsinline controls><source src="img/RTATimer/プログレスバー_RTA.mp4" type="video/mp4"></video>
+            <p class="modal-caption">コース進行に合わせたプログレスバー表示</p>
+          </div>
+          <div><img src="img/RTATimer/rta20.png" alt="rta20"><p class="modal-caption">タイマー UI の詳細表示</p></div>
+        </div>
+      </div>
+
+      <div class="modal-section">
+        <p class="modal-section-title">外部ファイル管理 — ノーコード更新設計</p>
+        <p class="modal-section-text">コース名・アイコン画像・自己ベストタイム・タイトルは外部CSVファイルで管理。コードを変更せずにコース構成・表示画像・自己ベストを更新できるため、別カテゴリや別コース構成への流用も容易。</p>
+        <img src="img/RTATimer/管理csv.png" alt="管理CSV" class="modal-img">
+        <p class="modal-caption">外部CSV によるコースデータ管理（コース名 / アイコン / ベストタイム）</p>
+      </div>
+
+      <div class="modal-section">
+        <p class="modal-section-title">スプリット記録デモ</p>
+        <video class="modal-video" autoplay muted loop playsinline controls><source src="img/RTATimer/RTATimerstop_音なし.mp4" type="video/mp4"></video>
+        <p class="modal-caption">Space：スプリット記録 / R：リセット — タイム差分がリアルタイムで更新される</p>
+      </div>
+    </div>
+    <div class="modal-bottom"><button class="btn-close-modal" onclick="closeModal('m-rta')">閉じる</button></div>
+  </div>
+</div>
+
+<!-- それなれな -->
+<div id="m-vtb" class="modal-overlay" onclick="closeIfOverlay(event,'m-vtb')">
+  <div class="modal-panel">
+    <button class="modal-close-float" onclick="closeModal('m-vtb')">✕</button>
+    <img src="img/それなれな/それなトップ.png" alt="それなれな" class="modal-hero-img">
+    <div class="modal-body">
+      <div class="modal-tags"><span class="modal-tag">UE5</span><span class="modal-tag">Blueprint</span><span class="modal-tag">VTuber</span><span class="modal-tag">YouTube</span><span class="modal-tag">Technical Communication</span></div>
+      <h2 class="modal-title">UE5 解説系VTuber「それなれな」</h2>
+      <p class="modal-date">2023/10 〜 2025/1</p>
+      <div class="modal-meta">
+        <div class="modal-meta-item"><p class="modal-meta-label">Role</p><p class="modal-meta-value">企画・収録・配信<br>編集・VTuber運用</p></div>
+        <div class="modal-meta-item"><p class="modal-meta-label">Tools</p><p class="modal-meta-value">UE5 / VRoid Studio<br>3tene / Premiere Pro<br>Photoshop</p></div>
+      </div>
+      <p class="modal-overview">UE5の初学者向け情報が少なかったため、英語のWeb記事・海外YouTube・Udemy講座を自ら参照しながら学習し、初心者がゲーム制作を学びやすい形に再構成してVTuber形式で発信。動画制作・配信・編集・VTuber運用まで個人で行った技術発信活動の記録。</p>
+
+      <div class="modal-section">
+        <p class="modal-section-title">解説動画 — ノベルゲーム制作チュートリアル</p>
+        <p class="modal-section-text">プロジェクト作成から簡単なノベルゲーム完成までを約30分にまとめた解説動画。操作手順だけでなく、各Blueprintノードの役割や接続の意図を説明し、視聴者が原理を理解して応用できる構成を意識した。英語圏にしかなかったUE5解説コンテンツを日本語で提供することで、国内の初学者層にとってのアクセス改善を目指した。</p>
+        <div class="modal-pair">
+          <div><img src="img/それなれな/ノベルゲーム作ってみたサムネ.png" alt="ノベルゲームサムネ"><p class="modal-caption"><a href="https://youtu.be/aFu4CGN9QGo" target="_blank">ノベルゲーム(笑)を作ったので紹介します！</a></p></div>
+          <div><img src="img/それなれな/ノベルゲーム作ってみた内容.png" alt="ノベルゲーム内容"><p class="modal-caption">動画内で解説したBlueprintの実装内容</p></div>
+        </div>
+      </div>
+
+      <div class="modal-section">
+        <p class="modal-section-title">開発配信 ＆ 切り抜き動画 — ホラーゲーム制作の記録</p>
+        <p class="modal-section-text">UE5でのホラーゲーム制作を配信。各回の冒頭で実装目標を設定し、バグや詰まった部分もそのまま共有しながら開発を進めた。配信で実装した内容や技術的なトラブルを後から追えるよう、20〜30分の切り抜き動画として再編集・投稿した。</p>
+        <div class="modal-pair">
+          <div><img src="img/それなれな/配信できました.png" alt="配信できました"><p class="modal-caption">配信環境構築後の初配信</p></div>
+          <div><img src="img/それなれな/切り抜き3サムネ.png" alt="切り抜き動画サムネ"><p class="modal-caption">配信内容を切り抜いた解説動画</p></div>
+        </div>
+      </div>
+
+      <div class="modal-section">
+        <p class="modal-section-title">Short動画 — 技術Tips の短尺発信</p>
+        <p class="modal-section-text">Shorts形式でUE5の技術Tips・操作方法を短尺に圧縮して発信。英語のUdemy講座やドキュメントを参照しながら自ら習得した内容を、before/afterを明確にしながら日本語で解説した。海外にしかないリソースを日本語化することで、国内初学者の学習コスト低減に貢献することを目指した。</p>
+        <div class="modal-trio">
+          <img src="img/それなれな/Udemy日本語.png" alt="Udemy日本語">
+          <img src="img/それなれな/空の作り方.png" alt="空の作り方">
+          <img src="img/それなれな/マージ法.png" alt="マージ法">
+        </div>
+        <p class="modal-caption">左：英語Udemyを参照して習得した内容の発信　中：空・環境の作り方Tips　右：アクタのマージ方法 解説</p>
+      </div>
+
+      <div class="modal-links" style="justify-content:center;">
+        <a href="https://www.youtube.com/channel/UChrKSArOdwJggvjTBKH4hYg" target="_blank" class="modal-link">▶ YouTubeチャンネルを見る</a>
+      </div>
+    </div>
+    <div class="modal-bottom"><button class="btn-close-modal" onclick="closeModal('m-vtb')">閉じる</button></div>
+  </div>
+</div>
+
+<!-- SCRIPTS -->
+<script>
+  // Fade-in
+  const obs=new IntersectionObserver((entries)=>{
+    entries.forEach((e,i)=>{
+      if(e.isIntersecting){setTimeout(()=>e.target.classList.add('visible'),i*70);obs.unobserve(e.target);}
+    });
+  },{threshold:.08,rootMargin:'0px 0px -36px 0px'});
+  document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+
+  // Skill bars
+  const barObs=new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        e.target.querySelectorAll('.skill-bar-fill').forEach(b=>{
+          const w=b.getAttribute('data-w');
+          setTimeout(()=>{b.style.width=w+'%';},150);
+        });
+        barObs.unobserve(e.target);
+      }
+    });
+  },{threshold:.2});
+  document.querySelectorAll('.skill-card').forEach(el=>barObs.observe(el));
+
+  // Nav active
+  const secs=document.querySelectorAll('section[id]');
+  const navAs=document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll',()=>{
+    let cur='';
+    secs.forEach(s=>{if(s.getBoundingClientRect().top<=80)cur=s.id;});
+    navAs.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+cur));
+  });
+
+  // Modal
+  function openModal(id){
+    const m=document.getElementById(id);
+    m.classList.add('open');
+    m.scrollTop=0;
+    document.body.style.overflow='hidden';
+  }
+  function closeModal(id){
+    document.getElementById(id).classList.remove('open');
+    document.body.style.overflow='';
+  }
+  function closeIfOverlay(e,id){
+    if(e.target===e.currentTarget)closeModal(id);
+  }
+  document.addEventListener('keydown',e=>{
+    if(e.key==='Escape'){
+      document.querySelectorAll('.modal-overlay.open').forEach(m=>{
+        m.classList.remove('open');
+        document.body.style.overflow='';
+      });
+    }
+  });
+</script>
+</body>
+</html>
