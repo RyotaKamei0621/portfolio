@@ -105,6 +105,19 @@
     .skill-chip{padding:5px 13px;background:var(--off-white);border:1px solid var(--gold-light);font-family:'Source Code Pro',monospace;font-size:.77rem;transition:all .2s;}
     .skill-chip:hover{background:var(--gold-pale);border-color:var(--gold);}
 
+    /* RESEARCH */
+    #research{background:var(--white);}
+    .research-overview{font-size:.95rem;color:var(--gray);line-height:1.9;max-width:720px;margin:0 auto 40px;}
+    .research-pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-bottom:40px;}
+    .research-pillar{background:var(--off-white);border:1px solid var(--gray-light);padding:24px 22px;}
+    .research-pillar-num{font-family:'Cinzel',serif;font-size:.72rem;color:var(--gold);letter-spacing:.2em;margin-bottom:10px;}
+    .research-pillar-title{font-size:.92rem;font-weight:700;line-height:1.5;margin-bottom:8px;color:var(--dark);}
+    .research-pillar-text{font-size:.8rem;color:var(--gray);line-height:1.8;}
+    .research-video-wrap{max-width:720px;margin:0 auto;}
+    .research-video-wrap video{width:100%;display:block;border:1px solid var(--gray-light);background:#000;}
+    .research-video-caption{font-size:.78rem;color:var(--gray);text-align:center;margin-top:8px;line-height:1.7;}
+    @media(max-width:640px){.research-pillars{grid-template-columns:1fr;}}
+
     /* WORKS */
     #works{background:var(--off-white);}
     .works-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:32px;}
@@ -239,6 +252,7 @@
     <li><a href="#about">About</a></li>
     <li><a href="#history">History</a></li>
     <li><a href="#skills">Skills</a></li>
+    <li><a href="#research">Research</a></li>
     <li><a href="#works">Works</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
@@ -355,6 +369,48 @@
     <p class="skills-label fade-in" style="margin-top:44px">— Supporting Skills</p>
     <div class="skill-chip-grid fade-in">
       <span class="skill-chip">Blender</span><span class="skill-chip">Processing</span><span class="skill-chip">JavaScript</span><span class="skill-chip">Node.js</span><span class="skill-chip">Java</span><span class="skill-chip">Git / GitHub</span><span class="skill-chip">Raspberry Pi</span><span class="skill-chip">AI</span><span class="skill-chip">OpenCV</span>
+    </div>
+  </div>
+</section>
+
+<!-- RESEARCH -->
+<section id="research">
+  <div class="section-inner">
+    <div class="section-header fade-in">
+      <p class="section-eyebrow">Graduate Research</p>
+      <h2 class="section-title">Research</h2>
+      <div class="section-divider"></div>
+    </div>
+
+    <p class="research-overview fade-in">
+      生体通信工学研究室に所属し、MI-BCI（Motor Imagery Brain-Computer Interface）の研究に取り組んでいる。<br>
+      テーマは「電流源推定を用いた日常動作想起の判別に向けた基礎的検討」。<br>
+      「電灯を点ける」「ボールを投げる」「机を拭く」「文字を書く」といった日常動作を想起した際の脳波を解析し、想起動作を脳波から直接判別できる、より直感的なBCIの実現を目指している。
+    </p>
+
+    <div class="research-pillars fade-in">
+      <div class="research-pillar">
+        <p class="research-pillar-num">01 — VR 実験システム</p>
+        <p class="research-pillar-title">Unity × Meta Quest × VIVE Tracker を連携した脳波実験システムの構築</p>
+        <p class="research-pillar-text">研究協力者の身体動作を事前にトラッキングし、VR空間で一人称視点のフィードバックアニメーションとして提示。脳波計測・課題提示・アバター制御を統合した実験システムをC#で実装した。ブロック間のアバター座標ずれを検出するキャリブレーション手順を追加し、安定した再現性のある実験系を確立した。</p>
+      </div>
+      <div class="research-pillar">
+        <p class="research-pillar-num">02 — 電流源推定</p>
+        <p class="research-pillar-title">eLORETA による電流源推定で脳内の関心領域を特定</p>
+        <p class="research-pillar-text">頭皮上の電極から得られる限られた信号を元に、EEGLABで前処理を行った後、eLORETAによる電流源推定を実施。賦活が確認された3つの脳領域を関心領域として絞り込み、動作の違いが現れる脳内部位を特定した。</p>
+      </div>
+      <div class="research-pillar">
+        <p class="research-pillar-num">03 — 動作判別への挑戦</p>
+        <p class="research-pillar-title">時間周波数解析とマハラノビス距離特徴量で判別可能性を探る</p>
+        <p class="research-pillar-text">関心領域に対して時間周波数解析を行い、各動作でどの時間・周波数帯に脳活動の差が現れるかを比較。動作の持続時間や運動計画の違いに応じた活動パターンの差を確認し、現在はマハラノビス距離に基づく特徴量を用いた判別精度の検討を進めている。</p>
+      </div>
+    </div>
+
+    <div class="research-video-wrap fade-in">
+      <video autoplay muted loop playsinline controls>
+        <source src="img/Research/FK_MI_Only.mp4" type="video/mp4">
+      </video>
+      <p class="research-video-caption">運動実行（FK）および運動想起（MI）時の主観視点・三人称視点と、eLORETAによる電流源推定の同期映像</p>
     </div>
   </div>
 </section>
