@@ -173,12 +173,12 @@
     /* 5-up (rank row) */
     .modal-five{display:grid;grid-template-columns:repeat(5,1fr);gap:4px;margin:8px 0;}
     .modal-five img{width:100%;display:block;border:1px solid var(--gray-light);}
-    /* プロンプト+デモ layout — image natural height, video matches */
-    .aituber-pair{display:flex;gap:10px;margin:8px 0;align-items:stretch;}
-    .aituber-pair-left{width:50%;flex-shrink:0;display:flex;flex-direction:column;}
-    .aituber-pair-left img{width:100%;height:auto;display:block;border:1px solid var(--gray-light);}
-    .aituber-pair-right{flex:1;display:flex;flex-direction:column;min-width:0;}
-    .aituber-pair-right video{width:100%;flex:1;object-fit:cover;display:block;border:1px solid var(--gray-light);min-height:0;background:#000;}
+    /* プロンプト+デモ layout — constrained height, no crop on image */
+    .aituber-pair{display:flex;gap:10px;margin:8px 0;align-items:stretch;max-height:420px;}
+    .aituber-pair-left{width:50%;flex-shrink:0;display:flex;flex-direction:column;overflow:hidden;}
+    .aituber-pair-left img{width:100%;height:100%;object-fit:contain;display:block;border:1px solid var(--gray-light);}
+    .aituber-pair-right{flex:1;display:flex;flex-direction:column;min-width:0;overflow:hidden;}
+    .aituber-pair-right video{width:100%;height:100%;object-fit:cover;display:block;border:1px solid var(--gray-light);background:#000;}
     /* caption */
     .modal-caption{font-size:.73rem;color:var(--gray);text-align:center;margin-top:3px;margin-bottom:10px;line-height:1.5;}
     .modal-caption a{color:var(--gold);text-decoration:none;border-bottom:1px solid var(--gold-light);}
@@ -275,7 +275,7 @@
         <div class="awards-list">
           <div class="award-item">
             <span style="color:var(--gold)">🏆</span>
-            <span class="award-text"><a href="https://tokyobcihackathon.com/hackathon" target="_blank">Tokyo BCI Hackathon 2025</a> &nbsp;<strong>準優勝</strong></span>
+            <span class="award-text"><a href="https://www.linkedin.com/posts/christyltk_unicornsuite-unicornunityinterface-bcievents-activity-7363089705602617344-GO2w?utm_source=share&utm_medium=member_ios&rcm=ACoAAEkuWcgBUpbBhq6xYwOZjurlSn29aFD80d4" target="_blank">Tokyo BCI Hackathon 2025</a> &nbsp;<strong>準優勝</strong></span>
           </div>
           <div class="award-item">
             <span style="color:var(--gold)">🏅</span>
@@ -299,7 +299,7 @@
         <p class="about-desc">ゲーム制作をきっかけにプログラミングを学び始め、Unity / Unreal Engine による開発に加え、3DモデリングやAI技術の活用など、必要な技術をその都度学びながら活動の幅を広げてきました。Brain Computer Interface（BCI）に関心を持ち、現在は電流源推定を用いた脳活動解析に取り組んでいます。</p>
         <div class="about-vision">
           <p class="about-vision-label">Vision</p>
-          <p class="about-vision-text">今はまだ一般的でない技術や体験を、未来の当たり前にしていくことを目指しています。ゲーム、AI、生体情報を組み合わせることで、人の能力や表現を拡張する新しいインターフェースを作りたいと考えています。</p>
+          <p class="about-vision-text">今はまだ一般的でない技術や体験を、未来の当たり前にしていくことを目指しています。AI技術をシステムに組み込むことで、これまでにないエンターテインメント体験を創出し、人の感情や能力を拡張する新しい体験を届けたいと考えています。</p>
         </div>
         <p class="about-desc" style="font-size:.87rem">BCIに興味を持った原点は、アニメ『ソードアート・オンライン』に登場するような、脳とコンピュータが直接つながるインターフェースへの憧れです。脳波から人の動作意図を読み取り、ゲームやAI、ロボットなどを動かす技術に可能性を感じています。</p>
       </div>
@@ -354,7 +354,7 @@
     </div>
     <p class="skills-label fade-in" style="margin-top:44px">— Supporting Skills</p>
     <div class="skill-chip-grid fade-in">
-      <span class="skill-chip">Blender</span><span class="skill-chip">Processing</span><span class="skill-chip">JavaScript</span><span class="skill-chip">Node.js</span><span class="skill-chip">Java</span><span class="skill-chip">Git / GitHub</span><span class="skill-chip">Raspberry Pi</span><span class="skill-chip">Local LLM</span><span class="skill-chip">OpenCV</span>
+      <span class="skill-chip">Blender</span><span class="skill-chip">Processing</span><span class="skill-chip">JavaScript</span><span class="skill-chip">Node.js</span><span class="skill-chip">Java</span><span class="skill-chip">Git / GitHub</span><span class="skill-chip">Raspberry Pi</span><span class="skill-chip">AI</span><span class="skill-chip">OpenCV</span>
     </div>
   </div>
 </section>
@@ -561,7 +561,7 @@
     <img src="img/夜露しずく/おばあさんの味.png" alt="夜露しずく" class="modal-hero-img" style="object-position:center 37.5%;">
     <div class="modal-body">
       <div class="modal-tags"><span class="modal-tag">Python</span><span class="modal-tag">Local LLM</span><span class="modal-tag">Raspberry Pi 5</span><span class="modal-tag">Live2D Cubism</span><span class="modal-tag">VOICEVOX</span></div>
-      <h2 class="modal-title">AITuber「夜露しずく」</h2>
+      <h2 class="modal-title" style="font-family:'Noto Sans JP',sans-serif;font-weight:700;">AITuber「夜露しずく」</h2>
       <p class="modal-date">2026/2</p>
       <div class="modal-meta">
         <div class="modal-meta-item"><p class="modal-meta-label">Role</p><p class="modal-meta-value">企画・実装<br>キャラクターデザイン<br>Live2Dモデリング</p></div>
@@ -580,7 +580,7 @@
 
       <div class="modal-section">
         <p class="modal-section-title">システム構成 — 5段階パイプライン</p>
-        <p class="modal-section-text">①Tailscaleによるポート開放なしの安全な通信 → ②WebクライアントからRaspberry Piへコメント送信 → ③ローカルLLMが応答生成 → ④VOICEVOX Engineで音声合成 → ⑤PixiJS + Live2D SDKでモデル表示・口パク同期</p>
+        <p class="modal-section-text">①Tailscaleによるポート開放なしの安全な通信 → ②WebクライアントからRaspberry Piへコメント送信 → ③<strong>Liquid AI LFM2.5（1.2Bパラメーターモデル）/ llama.cpp によるCPU推論</strong>で応答生成 → ④<strong>VOICEVOX Engine（ローカルREST API通信）</strong>で音声合成・完全ローカル＆オフライン動作 → ⑤<strong>PixiJS + Live2D Cubism SDK によるクライアントサイド（スマホ側）WebGLレンダリング</strong>でモデル表示・口パク同期<br><br>描画・アニメーション処理をすべてスマホ（クライアント）のGPU/CPUにオフロードすることで、非力なRaspberry Pi側の負荷を劇的に軽減する設計にした。ラズパイはテキスト・音声データをスマホに渡すだけで、重い描画処理には関与しない。</p>
         <div class="aituber-pair">
           <div class="aituber-pair-left">
             <img src="img/夜露しずく/プロンプト.png" alt="プロンプト設計">
@@ -604,6 +604,7 @@
         <p class="modal-caption">ジャンルを答えるシーン — キャラクター性のある返答例</p>
       </div>
     </div>
+    <div style="padding:8px 40px 0;text-align:right;"><p style="font-size:.72rem;color:var(--gray);">クレジット：VOICEVOX:猫使ビィ</p></div>
     <div class="modal-bottom"><button class="btn-close-modal" onclick="closeModal('m-aituber')">閉じる</button></div>
   </div>
 </div>
@@ -616,7 +617,7 @@
     <div class="modal-body">
       <div class="modal-tags"><span class="modal-tag">Python</span><span class="modal-tag">OpenCV</span><span class="modal-tag">Raspberry Pi</span><span class="modal-tag">サーボモーター</span><span class="modal-tag">Computer Vision</span></div>
       <h2 class="modal-title">顔認識ゲームプレイシステム</h2>
-      <p class="modal-date">2026/1 ／ 非商用の個人開発システム</p>
+      <p class="modal-date">2026/1</p>
       <div class="modal-meta">
         <div class="modal-meta-item"><p class="modal-meta-label">Role</p><p class="modal-meta-value">企画・実装<br>機構制作・動作検証</p></div>
         <div class="modal-meta-item"><p class="modal-meta-label">Tools</p><p class="modal-meta-value">Python / OpenCV<br>Raspberry Pi<br>サーボモーター</p></div>
@@ -657,7 +658,7 @@
     <div class="modal-body">
       <div class="modal-tags"><span class="modal-tag">Unity</span><span class="modal-tag">C#</span><span class="modal-tag">Hackathon</span><span class="modal-tag">BCI</span><span class="modal-tag">UDP</span><span class="modal-tag">複数人開発</span><span class="modal-tag accent">🏆 準優勝</span></div>
       <h2 class="modal-title">InnerRank — BCI × マッチングサービス</h2>
-      <p class="modal-date">2025/8 ／ <a href="https://tokyobcihackathon.com/hackathon" target="_blank" style="color:var(--gold)">Tokyo BCI Hackathon 2025</a></p>
+      <p class="modal-date">2025/8 ／ <a href="https://www.linkedin.com/posts/christyltk_unicornsuite-unicornunityinterface-bcievents-activity-7363089705602617344-GO2w?utm_source=share&utm_medium=member_ios&rcm=ACoAAEkuWcgBUpbBhq6xYwOZjurlSn29aFD80d4" target="_blank" style="color:var(--gold)">Tokyo BCI Hackathon 2025</a></p>
       <div class="modal-meta">
         <div class="modal-meta-item"><p class="modal-meta-label">Role</p><p class="modal-meta-value">Unity実装<br>UDP通信設計<br>動作検証</p></div>
         <div class="modal-meta-item"><p class="modal-meta-label">Tools</p><p class="modal-meta-value">Unity / C#<br>Unicorn Hybrid Black<br>UDP通信</p></div>
@@ -703,7 +704,7 @@
     <div class="modal-body">
       <div class="modal-tags"><span class="modal-tag">Processing</span><span class="modal-tag">3D Action</span></div>
       <h2 class="modal-title">立体機動訓練シミュレーター</h2>
-      <p class="modal-date">2026/1 ／ 授業課題（個人制作）</p>
+      <p class="modal-date">2026/1</p>
       <div class="modal-meta">
         <div class="modal-meta-item"><p class="modal-meta-label">Role</p><p class="modal-meta-value">企画・実装<br>ゲームデザイン</p></div>
         <div class="modal-meta-item"><p class="modal-meta-label">Tools</p><p class="modal-meta-value">Processing</p></div>
@@ -723,7 +724,7 @@
 <span class="code-kw">void</span> detectRotationAndMove() {
   <span class="code-kw">float</span> currentAngle = atan2(mouseY - cy, mouseX - cx);
   <span class="code-kw">float</span> delta = currentAngle - lastMouseAngle;
-  playerDist -= abs(delta) * ANCHOR_SPEED;
+  playerDist -= rotationInput * ANCHOR_SPEED;
 }
 
 <span class="code-comment">// ② マウス軌跡 → 斬撃ダメージ計算</span>
@@ -734,13 +735,12 @@
   <span class="code-kw">float</span> damage = (distToTitan &lt; 150) ? d * 2.5 : 0;
 }
 
-<span class="code-comment">// ③ 近づき過ぎ → ノックバック処理</span>
-<span class="code-kw">void</span> checkTooClose() {
-  <span class="code-kw">if</span> (distToTitan &lt; TOO_CLOSE_THRESHOLD) {
-    knockbackPlayer();
-    timeLeft -= KNOCKBACK_PENALTY;
-    triggerRedFlash();
-  }
+<span class="code-comment">// ③ 近づき過ぎ → ペナルティ処理</span>
+<span class="code-kw">void</span> applyPenalty() {
+  playerDist = 1000;
+  timeLeft -= 3.0;
+  isAttached = <span class="code-kw">false</span>;
+  flashColor = color(255, 0, 0, 150);
 }</div>
         <img src="img/立体機動シミュ/CoreInteraction.png" alt="コアインタラクション" class="modal-img">
         <p class="modal-caption">ゲーム開始・アンカー接近・斬撃・ノックバックの各インタラクション</p>
@@ -750,12 +750,12 @@
         <p class="modal-section-title">チュートリアル画面の進行</p>
         <p class="modal-section-text">ゲーム開始から操作方法の提示、アンカー発射、巻き取り、接近、斬撃に至るまでのフローをcase0〜case4の画面で説明。各caseでプレイヤーへの指示内容が変わり、段階的に立体機動操作を習得できる構成にした。</p>
         <img src="img/立体機動シミュ/チュートリアル進行.png" alt="チュートリアル進行" class="modal-img">
-        <p class="modal-caption">case0：ゲーム説明 → case1：アンカー発射 → case2：巻き取り → case3：接近 → case4：斬撃</p>
+        <p class="modal-caption">case0：ゲーム説明 → case1：アンカー発射 → case2：巻き取り → case3：斬撃 → case4：チュートリアル終了</p>
       </div>
 
       <div class="modal-section">
         <p class="modal-section-title">ランク評価システム</p>
-        <p class="modal-section-text">制限時間内の討伐数に応じて S〜D の5段階で評価。S（10体↑）/ A（7体↑）/ B（4体↑）/ C（1体↑）/ D</p>
+        <p class="modal-section-text">討伐数に応じた5段階の階級評価を実装し、プレイヤーにより高いスコアを目指すという動機づけを与える。最高ランク「S（人類最強）」のハードルを高めに設定し、アクション操作の習熟と効率的な立ち回りを要求することで、繰り返しプレイしたくなる中毒性と競技性をゲームにもたらした。</p>
         <img src="img/立体機動シミュ/ランク評価.png" alt="ランク評価" class="modal-img">
         <p class="modal-caption">S / A / B / C / D の5段階ランク評価画面</p>
       </div>
@@ -771,7 +771,7 @@
     <img src="img/PicScatter/商品ページ1.png" alt="PicScatter" class="modal-hero-img">
     <div class="modal-body">
       <div class="modal-tags"><span class="modal-tag">Python</span><span class="modal-tag">Tkinter</span><span class="modal-tag">Pillow</span><span class="modal-tag">Image Processing</span><span class="modal-tag accent">Booth 販売中</span></div>
-      <h2 class="modal-title">PicScatter — 画像分割・ランダムシャッフルアプリ</h2>
+      <h2 class="modal-title" style="font-family:'Noto Sans JP',sans-serif;font-weight:700;">PicScatter — 画像分割・ランダムシャッフルアプリ</h2>
       <p class="modal-date">2025/8</p>
       <div class="modal-meta">
         <div class="modal-meta-item"><p class="modal-meta-label">Role</p><p class="modal-meta-value">企画・実装<br>GUI設計・Booth公開</p></div>
@@ -783,7 +783,7 @@
         <p class="modal-section-title">GUI 設計 — Tkinter + Pillow</p>
         <p class="modal-section-text">Tkinterで画像選択・分割数・seed値・補正方式・プレビュー・保存の操作UIを構築。Pillowで画像読み込み・サイズ補正・ブロック分割・再配置・PNG/JPEG保存を実装。6ステップのワークフローをGUI上で完結。</p>
         <img src="img/PicScatter/tkinter1.png" alt="Tkinter GUI" class="modal-img">
-        <p class="modal-caption">Tkinter による GUI 操作画面</p>
+        <p class="modal-caption">Tkinter による GUI 操作処理</p>
         <img src="img/PicScatter/pillow2.png" alt="Pillow 処理" class="modal-img">
         <p class="modal-caption">Pillow による画像分割・再配置処理</p>
       </div>
@@ -797,9 +797,9 @@
 
       <div class="modal-section">
         <p class="modal-section-title">ユースケース — 脳波実験 ＆ ゲーム演出への活用</p>
-        <p class="modal-section-text">脳波実験（オッドボール課題）では、高頻度の標準刺激と低頻度の標的刺激を混在させてERP（P300成分）を測定。またホラーゲーム「研究事件」の砂嵐演出の素材作成にも活用した。</p>
+        <p class="modal-section-text">脳波実験（オッドボール課題）では、高頻度の標準刺激と低頻度の標的刺激を混在させてERP（P300成分）を測定。標的刺激の画像全体の輝度・色彩などの特性を保ったまま、認知対象だけを破壊した対照刺激を用意することが可能。また、ホラーゲーム「研究事件」で登場する、パソコンが急に砂嵐画面になる場面では、黒/白/ピンク/緑/黄などを配置した数パターンの画像に対してPicScatter処理を行うことで対応した。</p>
         <img src="img/PicScatter/脳波実験刺激.png" alt="脳波実験刺激" class="modal-img">
-        <p class="modal-caption">標準刺激（高頻度）と標的刺激（低頻度）の比較</p>
+        <p class="modal-caption">標的刺激（左）と標準刺激（右）の比較</p>
         <video class="modal-video" autoplay muted loop playsinline controls><source src="img/PicScatter/picscatter活用例.mp4" type="video/mp4"></video>
         <p class="modal-caption">ホラーゲーム「研究事件」での砂嵐演出への活用例</p>
       </div>
@@ -829,12 +829,12 @@
 
       <div class="modal-section">
         <p class="modal-section-title">プログレスバー ＆ UI 詳細</p>
-        <div class="modal-pair">
-          <div>
-            <video class="modal-video" autoplay muted loop playsinline controls><source src="img/RTATimer/プログレスバー_RTA.mp4" type="video/mp4"></video>
+        <div class="modal-pair" style="max-height:280px;">
+          <div style="overflow:hidden;">
+            <video class="modal-video" style="height:100%;object-fit:cover;" autoplay muted loop playsinline controls><source src="img/RTATimer/プログレスバー_RTA.mp4" type="video/mp4"></video>
             <p class="modal-caption">コース進行に合わせたプログレスバー表示</p>
           </div>
-          <div><img src="img/RTATimer/rta20.png" alt="rta20"><p class="modal-caption">タイマー UI の詳細表示</p></div>
+          <div style="overflow:hidden;"><img src="img/RTATimer/rta20.png" alt="rta20" style="width:100%;height:100%;object-fit:contain;"><p class="modal-caption">タイマー UI の詳細表示</p></div>
         </div>
       </div>
 
@@ -883,8 +883,8 @@
         <p class="modal-section-title">開発配信 ＆ 切り抜き動画 — ホラーゲーム制作の記録</p>
         <p class="modal-section-text">UE5でのホラーゲーム制作を配信。各回の冒頭で実装目標を設定し、バグや詰まった部分もそのまま共有しながら開発を進めた。配信で実装した内容や技術的なトラブルを後から追えるよう、20〜30分の切り抜き動画として再編集・投稿した。</p>
         <div class="modal-pair">
-          <div><img src="img/それなれな/配信できました.png" alt="配信できました"><p class="modal-caption">配信環境構築後の初配信</p></div>
-          <div><img src="img/それなれな/切り抜き3サムネ.png" alt="切り抜き動画サムネ"><p class="modal-caption">配信内容を切り抜いた解説動画</p></div>
+          <div><img src="img/それなれな/配信できました.png" alt="配信できました"><p class="modal-caption"><a href="https://youtube.com/live/Mgn1Eb5pERM" target="_blank">【UE5作業配信】アイテムを引き出しから入手する【第6夜】</a></p></div>
+          <div><img src="img/それなれな/切り抜き3サムネ.png" alt="切り抜き動画サムネ"><p class="modal-caption"><a href="https://youtu.be/aFu4CGN9QGo" target="_blank">【UE5】視聴者さんの力を借りてついにインベントリが完成しました【配信切り抜き】</a></p></div>
         </div>
       </div>
 
@@ -892,11 +892,10 @@
         <p class="modal-section-title">Short動画 — 技術Tips の短尺発信</p>
         <p class="modal-section-text">Shorts形式でUE5の技術Tips・操作方法を短尺に圧縮して発信。英語のUdemy講座やドキュメントを参照しながら自ら習得した内容を、before/afterを明確にしながら日本語で解説した。海外にしかないリソースを日本語化することで、国内初学者の学習コスト低減に貢献することを目指した。</p>
         <div class="modal-trio">
-          <img src="img/それなれな/Udemy日本語.png" alt="Udemy日本語">
-          <img src="img/それなれな/空の作り方.png" alt="空の作り方">
-          <img src="img/それなれな/マージ法.png" alt="マージ法">
+          <div><img src="img/それなれな/Udemy日本語.png" alt="Udemy日本語"><p class="modal-caption"><a href="https://youtube.com/shorts/dY571a4fSXE" target="_blank">日本語字幕非対応のUdemy講座に日本語字幕を付ける裏技</a></p></div>
+          <div><img src="img/それなれな/空の作り方.png" alt="空の作り方"><p class="modal-caption"><a href="https://youtube.com/shorts/Ll6G0Q70OhI" target="_blank">【UE5】30秒で分かる空の作り方</a></p></div>
+          <div><img src="img/それなれな/マージ法.png" alt="マージ法"><p class="modal-caption"><a href="https://youtube.com/shorts/goIavhe0Jc8" target="_blank">【超便利】レベルデザインで役立つ「アクタのマージ」機能【UE5】</a></p></div>
         </div>
-        <p class="modal-caption">左：英語Udemyを参照して習得した内容の発信　中：空・環境の作り方Tips　右：アクタのマージ方法 解説</p>
       </div>
 
       <div class="modal-links" style="justify-content:center;">
