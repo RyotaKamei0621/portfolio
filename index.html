@@ -299,7 +299,7 @@
         <p class="about-desc">ゲーム制作をきっかけにプログラミングを学び始め、Unity / Unreal Engine による開発に加え、3DモデリングやAI技術の活用など、必要な技術をその都度学びながら活動の幅を広げてきました。Brain Computer Interface（BCI）に関心を持ち、現在は電流源推定を用いた脳活動解析に取り組んでいます。</p>
         <div class="about-vision">
           <p class="about-vision-label">Vision</p>
-          <p class="about-vision-text">今はまだ一般的でない技術や体験を、未来の当たり前にしていくことを目指しています。AI技術をシステムに組み込むことで、これまでにないエンターテインメント体験を創出し、人の感情や能力を拡張する新しい体験を届けたいと考えています。</p>
+          <p class="about-vision-text">今はまだ一般的でない技術や体験を、未来の当たり前にしていくことを目指しています。AI技術をシステムに組み込むことで、これまでにないエンターテインメント体験を創出し、新しいエンターテインメントの形を創出し、ユーザーに感動をもたらす体験を届けたいと考えています。</p>
         </div>
         <p class="about-desc" style="font-size:.87rem">BCIに興味を持った原点は、アニメ『ソードアート・オンライン』に登場するような、脳とコンピュータが直接つながるインターフェースへの憧れです。脳波から人の動作意図を読み取り、ゲームやAI、ロボットなどを動かす技術に可能性を感じています。</p>
       </div>
@@ -588,10 +588,9 @@
           </div>
           <div class="aituber-pair-right">
             <video autoplay muted loop playsinline controls>
-              <source src="img/夜露しずく/AITuber.mov" type="video/quicktime">
-              <source src="img/夜露しずく/AITuber.mov" type="video/mp4">
+              <source src="img/夜露しずく/AITuber横.mp4" type="video/mp4">
             </video>
-            <p class="modal-caption">会話デモ映像（※再生できない場合はSafariでご確認ください）</p>
+            <p class="modal-caption">会話デモ映像</p>
           </div>
         </div>
       </div>
@@ -683,7 +682,7 @@
         <p class="modal-section-title">技術構成 — EEGリアルタイム処理</p>
         <p class="modal-section-text">g.tec社製Unicorn Hybrid Blackから6周波数帯域×8電極の脳波データをUDP通信でUnityに送信。プロフィール画像の表示中に取得した脳波から、左右電極間の差分とβ/α比を組み合わせた評価スコアを算出。</p>
         <img src="img/InnerRank/評価システム.png" alt="評価システム" class="modal-img">
-        <p class="modal-caption">使用した脳波計（Unicorn Hybrid Black）＆ 評価スコア算出ロジック：左右電極差 ＋ β/α比による感情反応の補正</p>
+        <p class="modal-caption">Unicorn Hybrid Black（左）と 評価スコア算出ロジック（右）</p>
       </div>
 
       <div class="modal-section">
@@ -743,14 +742,14 @@
   flashColor = color(255, 0, 0, 150);
 }</div>
         <img src="img/立体機動シミュ/CoreInteraction.png" alt="コアインタラクション" class="modal-img">
-        <p class="modal-caption">ゲーム開始・アンカー接近・斬撃・ノックバックの各インタラクション</p>
+        <p class="modal-caption">マウス回転で接近（左）　マウス軌跡で斬撃（中）　近づきすぎたらノックバック（右）</p>
       </div>
 
       <div class="modal-section">
         <p class="modal-section-title">チュートリアル画面の進行</p>
         <p class="modal-section-text">ゲーム開始から操作方法の提示、アンカー発射、巻き取り、接近、斬撃に至るまでのフローをcase0〜case4の画面で説明。各caseでプレイヤーへの指示内容が変わり、段階的に立体機動操作を習得できる構成にした。</p>
         <img src="img/立体機動シミュ/チュートリアル進行.png" alt="チュートリアル進行" class="modal-img">
-        <p class="modal-caption">case0：ゲーム説明 → case1：アンカー発射 → case2：巻き取り → case3：斬撃 → case4：チュートリアル終了</p>
+        <p class="modal-caption">case0：視点移動 → case1：アンカー発射 → case2：巻き取り → case3：斬撃 → case4：チュートリアル終了</p>
       </div>
 
       <div class="modal-section">
@@ -778,6 +777,13 @@
         <div class="modal-meta-item"><p class="modal-meta-label">Tools</p><p class="modal-meta-value">Python / Tkinter / Pillow</p></div>
       </div>
       <p class="modal-overview">選択した画像を縦横に分割し、各ブロックをランダムに再配置するPython製GUIアプリ。脳波実験のオッドボール課題で使う視覚刺激の作成が目的。画像選択・分割数指定・seed値での再現性確保・プレビュー・保存をGUI上で完結できるよう設計し、Boothで公開・販売した。</p>
+
+      <div class="modal-section">
+        <p class="modal-section-title">使用イメージ</p>
+        <p class="modal-section-text">画像を選択し、分割数とseed値を指定してボタンを押すだけで処理が完了。プレビューで確認しながら保存できるシンプルな操作フローを実現した。</p>
+        <video class="modal-video" autoplay muted loop playsinline controls><source src="img/PicScatter/PicScattershort.mp4" type="video/mp4"></video>
+        <p class="modal-caption">画像選択 → 分割数指定 → シャッフル → プレビュー → 保存の一連の操作</p>
+      </div>
 
       <div class="modal-section">
         <p class="modal-section-title">GUI 設計 — Tkinter + Pillow</p>
@@ -829,12 +835,12 @@
 
       <div class="modal-section">
         <p class="modal-section-title">プログレスバー ＆ UI 詳細</p>
-        <div class="modal-pair" style="max-height:280px;">
-          <div style="overflow:hidden;">
-            <video class="modal-video" style="height:100%;object-fit:cover;" autoplay muted loop playsinline controls><source src="img/RTATimer/プログレスバー_RTA.mp4" type="video/mp4"></video>
+        <div class="modal-pair">
+          <div>
+            <video class="modal-video" autoplay muted loop playsinline controls><source src="img/RTATimer/プログレスバー_RTA.mp4" type="video/mp4"></video>
             <p class="modal-caption">コース進行に合わせたプログレスバー表示</p>
           </div>
-          <div style="overflow:hidden;"><img src="img/RTATimer/rta20.png" alt="rta20" style="width:100%;height:100%;object-fit:contain;"><p class="modal-caption">タイマー UI の詳細表示</p></div>
+          <div><img src="img/RTATimer/rta20.png" alt="rta20"><p class="modal-caption">タイマー UI の詳細表示</p></div>
         </div>
       </div>
 
