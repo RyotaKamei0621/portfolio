@@ -241,6 +241,18 @@
       .modal-body{padding:24px 20px 16px;}
       .modal-bottom{padding:20px;}
     }
+
+    /* AVATAR WIDGET */
+    .avatar-widget{position:fixed;bottom:24px;right:24px;z-index:300;display:flex;flex-direction:column;align-items:flex-end;gap:8px;pointer-events:none;}
+    .avatar-bubble{background:var(--white);border:1px solid var(--gold-light);border-radius:10px;padding:10px;display:flex;flex-direction:column;gap:6px;min-width:185px;max-width:230px;box-shadow:0 4px 20px rgba(0,0,0,.12);opacity:0;transform:translateY(8px) scale(.97);transition:opacity .2s,transform .2s;pointer-events:none;}
+    .avatar-bubble.show{opacity:1;transform:none;pointer-events:auto;}
+    .avatar-q-btn{background:none;border:1px solid var(--gold-light);border-radius:6px;padding:7px 12px;font-size:.76rem;font-family:'Noto Sans JP',sans-serif;color:var(--dark);cursor:pointer;text-align:left;transition:background .2s;line-height:1.45;pointer-events:auto;}
+    .avatar-q-btn:hover{background:var(--gold-pale);}
+    .avatar-q-btn.dismiss{color:var(--gray);font-size:.71rem;border-color:var(--gray-light);}
+    .avatar-q-btn.dismiss:hover{background:var(--gray-light);}
+    .avatar-face-wrap{width:88px;height:88px;border-radius:50%;overflow:hidden;cursor:pointer;border:2.5px solid var(--gold);box-shadow:0 4px 16px rgba(201,168,76,.38);transition:transform .2s,box-shadow .2s;pointer-events:auto;flex-shrink:0;}
+    .avatar-face-wrap:hover{transform:scale(1.06);box-shadow:0 6px 24px rgba(201,168,76,.55);}
+    .avatar-face-wrap img{width:100%;height:100%;object-fit:cover;display:block;user-select:none;-webkit-user-drag:none;}
   </style>
 </head>
 <body>
@@ -967,6 +979,14 @@
 </div>
 
 <!-- SCRIPTS -->
+<!-- AVATAR WIDGET -->
+<div class="avatar-widget" id="avatarWidget">
+  <div class="avatar-bubble" id="avatarBubble"></div>
+  <div class="avatar-face-wrap" id="avatarFaceWrap" onclick="toggleAvatarBubble()">
+    <img id="avatarFace" src="img/avatar/slices2/A/r2c2.png" alt="KAI">
+  </div>
+</div>
+
 <script>
   // Fade-in
   const obs=new IntersectionObserver((entries)=>{
@@ -1021,6 +1041,125 @@
       });
     }
   });
+
+  // ===== AVATAR WIDGET =====
+  // States: A=目開け普通  B=目閉じ普通  C=目開け笑顔  D=目閉じ笑顔
+  (function(){
+    const QUESTIONS = [
+      { text:'これまでの経歴は？',      act:()=>scrollToSection('#history') },
+      { text:'どんなスキルがある？',    act:()=>scrollToSection('#skills') },
+      { text:'どんな研究をしてるの？',  act:()=>scrollToSection('#research') },
+      { text:'開発中のプロジェクトは？',act:()=>openModal('m-kenkyu') },
+      { text:'AITuberってなに？',       act:()=>openModal('m-aituber') },
+      { text:'ハードウェアもできる？',  act:()=>openModal('m-face') },
+      { text:'心臓を捧げよ！',          act:()=>openModal('m-tachi') },
+      { text:'ハッカソン経験は？',      act:()=>openModal('m-inner') },
+      { text:'アプリ販売してるの？',    act:()=>openModal('m-pic') },
+      { text:'RTAタイマー作ったの？',   act:()=>openModal('m-rta') },
+      { text:'VTuberやってたの？',      act:()=>openModal('m-vtb') },
+      { text:'連絡したい',              act:()=>scrollToSection('#contact') },
+    ];
+
+    function scrollToSection(hash){
+      hideBubble();
+      const el=document.querySelector(hash);
+      if(el) el.scrollIntoView({behavior:'smooth'});
+    }
+
+    const faceImg  = document.getElementById('avatarFace');
+    const faceWrap = document.getElementById('avatarFaceWrap');
+    const bubble   = document.getElementById('avatarBubble');
+    const widget   = document.getElementById('avatarWidget');
+    let bubbleOpen = false;
+    let curRow=2, curCol=2;
+    let eyeOpen  = true;  // true=目開け(A/C)  false=目閉じ(B/D)
+    let smiling  = false; // true=笑顔(C/D)    false=普通(A/B)
+
+    // 笑顔切り替え距離（アバター中心からのpx）
+    const SMILE_DIST = 150;
+
+    function currentState(){
+      if( eyeOpen && !smiling) return 'A';
+      if(!eyeOpen && !smiling) return 'B';
+      if( eyeOpen &&  smiling) return 'C';
+      return 'D';
+    }
+    function imgSrc(r,c){
+      return `img/avatar/slices2/${currentState()}/r${r}c${c}.png`;
+    }
+    function refreshFace(){
+      faceImg.src = imgSrc(curRow, curCol);
+    }
+
+    // Mouse tracking（方向 + 笑顔距離判定）
+    document.addEventListener('mousemove', e=>{
+      const rect = faceWrap.getBoundingClientRect();
+      const cx = rect.left + rect.width/2;
+      const cy = rect.top  + rect.height/2;
+      const dx = e.clientX - cx;
+      const dy = e.clientY - cy;
+
+      // 方向（25分割）
+      const maxD = 700;
+      const nx = Math.max(-1, Math.min(1, dx/maxD));
+      const ny = Math.max(-1, Math.min(1, dy/maxD));
+      curCol = Math.round((nx+1)*2);
+      curRow = Math.round((ny+1)*2);
+
+      // 笑顔距離判定
+      const dist = Math.sqrt(dx*dx + dy*dy);
+      const nowSmiling = dist < SMILE_DIST;
+      if(nowSmiling !== smiling){
+        smiling = nowSmiling;
+        refreshFace();
+      } else if(eyeOpen){
+        refreshFace();
+      }
+    });
+
+    // Auto blink（まばたきは表情を維持したままA↔B / C↔D）
+    function scheduleBlink(){
+      const delay = 3000 + Math.random()*3000;
+      setTimeout(()=>{
+        eyeOpen=false; refreshFace();
+        setTimeout(()=>{ eyeOpen=true; refreshFace(); scheduleBlink(); }, 140);
+      }, delay);
+    }
+    scheduleBlink();
+
+    // Bubble
+    function showBubble(){
+      const shuffled = [...QUESTIONS].sort(()=>Math.random()-.5).slice(0,3);
+      bubble.innerHTML='';
+      shuffled.forEach(q=>{
+        const btn=document.createElement('button');
+        btn.className='avatar-q-btn';
+        btn.textContent=q.text;
+        btn.addEventListener('click',()=>{ hideBubble(); q.act(); });
+        bubble.appendChild(btn);
+      });
+      const dis=document.createElement('button');
+      dis.className='avatar-q-btn dismiss';
+      dis.textContent='なんでもない';
+      dis.addEventListener('click', hideBubble);
+      bubble.appendChild(dis);
+      bubble.classList.add('show');
+      bubbleOpen=true;
+    }
+    function hideBubble(){
+      bubble.classList.remove('show');
+      bubbleOpen=false;
+    }
+    function toggleAvatarBubble(){
+      bubbleOpen ? hideBubble() : showBubble();
+    }
+    window.toggleAvatarBubble = toggleAvatarBubble;
+
+    // Close on outside click
+    document.addEventListener('click', e=>{
+      if(bubbleOpen && !widget.contains(e.target)) hideBubble();
+    });
+  })();
 </script>
 </body>
 </html>
